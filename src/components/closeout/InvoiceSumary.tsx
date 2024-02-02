@@ -1,33 +1,7 @@
 import { Button, Dialog } from "@radix-ui/themes";
-import * as FileSaver from 'file-saver';
-import * as XLSX from 'xlsx';
 
-import { ISharedClouseoutPageData } from "@/lib/axios/api";
+import { exportToExcel } from "@/lib/fileSaver/exportToXLSX";
 import { dateFormatter, priceFormatter } from "@/lib/utils/formatter";
-
-
-const fakeTable = [
-    {id: 1, name: 'João', age: 20},
-    {id: 2, name: 'Maria', age: 20},
-    {id: 3, name: 'José', age: 20},
-    {id: 4, name: 'Pedro', age: 20},
-    {id: 5, name: 'Ana', age: 20},
-]
-
-
-function exportToExcel(dataToExcel: unknown[]){
-    const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
-    const fileExtension = ".xlsx";
-
-
-
-    const ws = XLSX.utils.json_to_sheet(dataToExcel);
-    const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
-    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-    const data = new Blob([excelBuffer], {type: fileType});
-    FileSaver.saveAs(data, "fileName" + fileExtension);
-}
-
 
 interface GroupedItems {
     owner_document: string;

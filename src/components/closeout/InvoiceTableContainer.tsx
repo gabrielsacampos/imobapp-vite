@@ -12,6 +12,7 @@ interface InvoiceTableContainerProps{
 }
 
 export function InvoiceTableContainer ({items}: InvoiceTableContainerProps){
+    console.log(items)
     const emitedInvoices = items.filter((item) => item.invoice_status === "AUTHORIZED")
     const pendingInvoices = items.filter((item) => item.invoice_status === "PENDING" )
     const notSentInvoices = items.filter((item) => item.invoice_status === null)
