@@ -13,7 +13,7 @@ export function OwnersInvoicesCard(){
         {mock.map((item) => {
             return(
                 <OwnersInvoiceDialog key={item.number}>
-                    <Card >
+                    <Card className="hover:bg-zinc-50 hover:cursor-pointer">
                         <header className="w-full mb-2">
                             <Badge> Nota {item.number}</Badge>
                         </header>
