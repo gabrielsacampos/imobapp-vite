@@ -12,8 +12,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../components/ui/ta
 export function Customer(){
     return(
         <div  className="w-full flex justify-center">
-            <Tabs className="w-full flex flex-col">
-                <TabsList defaultValue="owner">
+            <Tabs className="w-full flex flex-col" defaultValue="owner">
+                <TabsList>
                     <TabsTrigger value='owner' >Proprietário</TabsTrigger>
                     <TabsTrigger value='tenant' >Locatário</TabsTrigger>
                 </TabsList>
