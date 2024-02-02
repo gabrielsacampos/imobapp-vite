@@ -14,6 +14,7 @@ const {data, isLoading, error} = useCloseoutData();
         <>carregando</>
     </h1>
 
+
     return (
         <div>
             <h1 className="text-2xl md:text-4xl mt-10 font-semibold text-zinc-500 pl-2">Fechamento de mês</h1>
