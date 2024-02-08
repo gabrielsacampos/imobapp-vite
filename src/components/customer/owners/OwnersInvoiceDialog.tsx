@@ -17,6 +17,9 @@ export function OwnersInvoiceDialog({children}: OwnerInvoiceDialogProps){
                 {children}
             </Dialog.Trigger>
             <Dialog.Content>
+                <Dialog.Close className="mb-2">
+                    <XIcon color="gray"/>
+                </Dialog.Close>
                 <OnwerInvoiceDialogContent />
             </Dialog.Content>    
         </Dialog.Root>
@@ -55,9 +58,7 @@ export function OnwerInvoiceDialogContent(){
 
     return(
             <>
-                <Dialog.Close className="mb-2">
-                    <XIcon color="gray"/>
-                </Dialog.Close>
+                
                 <div className="flex flex-col gap-5 items-center">
                     <p className="font-semibold text-zinc-500">Selecione qual arquivo você quer baixar</p>
                     <div className="flex flex-col gap-5">

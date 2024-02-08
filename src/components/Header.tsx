@@ -1,9 +1,7 @@
-"use client";
-
-import { PersonStandingIcon } from "lucide-react";
 import { ChevronsLeft } from "lucide-react";
 import { useState } from "react";
 
+import AvatarSvg from '../svg/male-avatar.svg';
 import Logo from "./Logo";
 import { Sidebar } from "./Sidebar";
 
@@ -25,7 +23,7 @@ export function Header() {
             <Logo />
         </div>
 
-        <PersonStandingIcon />
+        <img src={AvatarSvg} width={40} height={40}/>
       </header>
 
       <Sidebar opened={sidebarOpened} />

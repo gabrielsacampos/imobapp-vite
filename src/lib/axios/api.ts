@@ -72,6 +72,24 @@ export interface IPostInvoice{
   }
 }
 
+export interface IPendingPayments{
+  lease_code: string;
+  total_pending: number;
+  count_pending: number;
+  property: string;
+  id_owner: string;
+  tenant_name: string;
+  owner_name: string;
+  owner_document: string;
+  pending_payments: {
+    id: string;
+    due_date: Date;
+    value: number;
+    arrears_days: number;
+    bank_slip_url: string;
+  }[]
+}
+
 class ApiClient {
   
   // getTopCards(): Promise<ITopCards>{
@@ -95,8 +113,11 @@ class ApiClient {
   }  
 
   postInvoice(data: IPostInvoice): Promise<Partial<IPostInvoice>>{
-    console.log(data)
     return api.post('/asaas/invoice', data).then((res) => res.data)
+  }
+
+  getPendingPayments(): Promise<IPendingPayments[]>{
+    return api.get("/me/pending-payments").then((res) => res.data )
   }
 }
 

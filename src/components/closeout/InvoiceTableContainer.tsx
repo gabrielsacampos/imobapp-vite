@@ -1,9 +1,9 @@
 import { ISharedClouseoutPageData } from "@/lib/axios/api";
 
+ import WomanDrinkCoffee from '../../svg/woman-drink-coffee.svg'
 import { Badge } from "../ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { InvoiceTable } from "./InvoiceTable";
-
 
 
 
@@ -34,10 +34,25 @@ export function InvoiceTableContainer ({items}: InvoiceTableContainerProps){
                 <InvoiceTable items={emitedInvoices}/>
             </TabsContent>
             <TabsContent value="ERROR">
-                <InvoiceTable items={failedInvoices}/>
+                {/* <InvoiceTable items={failedInvoices}/> */}
+                <InvoiceTableContainerChill />
             </TabsContent>
         </Tabs>
         
         </>
     
     )}
+
+
+export function InvoiceTableContainerChill(){
+    return(
+        <div className="flex items-center gap-5 justify-center mt-10">
+            <div>
+                <h1 className="text-xl font-semibold text-zinc-500"> Não há nada por aqui!</h1>
+                <p className="font-ligth text-zinc-400">Tome um café e relaxe.</p>
+            </div>
+
+            <img src={WomanDrinkCoffee} width={70} height={70} />
+        </div>
+    )
+}

@@ -17,10 +17,10 @@ export function OwnersInvoicesCard(){
                         <header className="w-full mb-2">
                             <Badge> Nota {item.number}</Badge>
                         </header>
-                            <div className="flex flex-col md:flex-row gap-2 md:gap-5 text-zinc-600 w-auto ">
-                                <h1 className="">Emissão: <span className="font-bold"> {item.effective_date}</span></h1>
-                                <h1 className="flex items-center gap-1">Nota: <span className="font-bold"> {item.value}</span></h1>
-                                <h1 className="flex items-center gap-1">Repasse: <span className="font-bold"> 35.098,68</span></h1>
+                            <div className="flex flex-col gap-2 sm:flex-row sm:gap-5 text-zinc-500 w-auto ">
+                                <h1 className="">Emissão: {item.effective_date}</h1>
+                                <h1 className="flex items-center gap-1">Nota:  {item.value}</h1>
+                                <h1 className="flex items-center gap-1">Repasse:  35.098,68</h1>
                             </div>   
                     </Card>           
                 </OwnersInvoiceDialog>

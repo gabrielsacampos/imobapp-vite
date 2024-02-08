@@ -3,10 +3,12 @@ import { Button, Dialog } from "@radix-ui/themes";
 import { useEffect, useState } from "react";
 
 import { InvoiceDialogDetailsProps } from "./InvoiceDialogDetails";
+import { toast } from "sonner";
 
+
+//should be a form
 export function InvoiceEmitter(props: InvoiceDialogDetailsProps){
     const owner_name = props.items[0].owner_name;
-    console.log(props.items[0])
     const owner_document = props.items[0].owner_document;
     const invoice_value = props.items.reduce((acc, curr) => acc+= curr.value, 0)
     
@@ -16,7 +18,10 @@ export function InvoiceEmitter(props: InvoiceDialogDetailsProps){
 
 
     async function handleEmitterButtonClick(){
-        
+        toast.success("Nota fiscal enviada para emissão.")
+        setEmittButtonDisabled(true)
+        setEmittButtonLabel('Aguarde')
+        console.log(emittButtonDisabled, emittButtonLabel)
     }
     
     
@@ -52,8 +57,9 @@ export function InvoiceEmitter(props: InvoiceDialogDetailsProps){
                 <Button 
                     className="w-1/2"
                     onClick={handleEmitterButtonClick}
+                    disabled={emittButtonDisabled}
                 >
-                    Emitir</Button>
+                    {emittButtonLabel}</Button>
                 <Dialog.Close >
                     <Button className="w-1/2" color="gray" variant="soft">Cancelar</Button>
                 </Dialog.Close>
