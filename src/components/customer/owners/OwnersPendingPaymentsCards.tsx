@@ -47,7 +47,7 @@ export function OwnersPendingPaymentsCard({data}: OwnersPendingPaymentsProps){
                         return (
                             <OwnersPendingPaymentDialog
                                 key={lease.lease_code} 
-                                {...lease}
+                                data={lease}
                             >
                                 <Card 
                                     key={lease.lease_code} 
