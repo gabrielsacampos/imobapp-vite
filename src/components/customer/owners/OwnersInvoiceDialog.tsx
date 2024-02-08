@@ -11,27 +11,6 @@ export interface OwnerInvoiceDialogProps {
 }
 
 export function OwnersInvoiceDialog({children}: OwnerInvoiceDialogProps){
-    return (
-        <Dialog.Root>
-            <Dialog.Trigger>
-                {children}
-            </Dialog.Trigger>
-            <Dialog.Content>
-                <Dialog.Close className="mb-2">
-                    <XIcon color="gray"/>
-                </Dialog.Close>
-                <OnwerInvoiceDialogContent />
-            </Dialog.Content>    
-        </Dialog.Root>
-    )
-}
-
-
-
-
-
-export function OnwerInvoiceDialogContent(){
-
     const data = [{a: 123, b: 321}, {a:21, b: 54}]
 
 
@@ -56,11 +35,19 @@ export function OnwerInvoiceDialogContent(){
     }
 
 
-    return(
-            <>
-                
+
+    return (
+        <Dialog.Root>
+            <Dialog.Trigger>
+                {children}
+            </Dialog.Trigger>
+            <Dialog.Content>
+                <Dialog.Close className="mb-2">
+                    <XIcon color="gray"/>
+                </Dialog.Close>
+            
                 <div className="flex flex-col gap-5 items-center">
-                    <p className="font-semibold text-zinc-500">Selecione qual arquivo você quer baixar</p>
+                    <p className="font-semibold text-zinc-500">Selecione o arquivo</p>
                     <div className="flex flex-col gap-5">
                         <Link to={"https://nebulafy.dev"} target="_blank">
                             <Button name="invoice-button"  className="rounded-sm" >
@@ -70,6 +57,10 @@ export function OnwerInvoiceDialogContent(){
                         <Button name="statement-button" onClick={handleStatementButtonClick}  variant="outline"  className="rounded-sm" >Extrato</Button>
                     </div>
                 </div>
-            </>
+
+            </Dialog.Content>    
+        </Dialog.Root>
     )
 }
+
+
