@@ -5,18 +5,24 @@ import { useOwnersBodyContainer } from "@/hooks/useOwnersBodyContainer";
 
 import { OwnersInvoicesCard } from "./OwnersInvoicesCards";
 import { OwnersPendingPaymentsCard } from "./OwnersPendingPaymentsCards";
+import { IPendingPayments } from "@/lib/axios/api";
 
 
+export interface OwnersBodyContainerProps {
+    data: IPendingPayments[] | undefined;
+    error: Error | null;
+    isLoading: boolean;
+}
 
+export function OwnersBodyContainer(props: OwnersBodyContainerProps){
+    
 
-export function OwnersBodyContainer(){
-    const {data, error, isLoading} = useOwnersBodyContainer()
-
-    if(isLoading){
-        return 'carregando'
+    if(props.isLoading){
+        return <OwnersBodyContainerSkeleton />
     }
 
     return (
+            
         <Card className="max-w-[300px] sm:max-w-full">
             <Tabs.Root mb="2" defaultValue="invoices">
                 <Tabs.List>
@@ -37,7 +43,7 @@ export function OwnersBodyContainer(){
                     </div>
                 </Tabs.Content>
                 <Tabs.Content value="pending">
-                    <OwnersPendingPaymentsCard data={data!} />
+                    <OwnersPendingPaymentsCard data={props.data!} />
                 </Tabs.Content>
             </Tabs.Root>
         </Card>
@@ -45,5 +51,21 @@ export function OwnersBodyContainer(){
 }
 
 
-
-
+export function OwnersBodyContainerSkeleton(){
+    return(
+        <div className="max-w-[300px] sm:max-w-full  bg-zinc-50 p-2 rounded-md animate-pulse">
+            <div className="flex gap-2 w-full">
+                <div className="h-[20px] w-24 bg-zinc-200 rounded-md mb-2"></div>
+                <div className="h-[20px] w-24 bg-zinc-200 rounded-md mb-2"></div>
+            </div>
+            <div>
+                
+                <div className="h-[60px] w-full bg-zinc-200 rounded-md mb-2"></div>
+                <div className="h-[60px] w-full bg-zinc-200 rounded-md mb-2"></div>
+                <div className="h-[60px] w-full bg-zinc-200 rounded-md mb-2"></div>
+                <div className="h-[60px] w-full bg-zinc-200 rounded-md mb-2"></div>
+                <div className="h-[60px] w-full bg-zinc-200 rounded-md mb-2"></div>
+            </div>
+        </div>
+    )
+}

@@ -34,8 +34,6 @@ export function OwnersInvoiceDialog({children}: OwnerInvoiceDialogProps){
         )
     }
 
-
-
     return (
         <Dialog.Root>
             <Dialog.Trigger>
