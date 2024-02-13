@@ -1,4 +1,4 @@
-import { Button, Dialog } from "@radix-ui/themes";
+import { Button } from "@radix-ui/themes";
 
 import { exportToExcel } from "@/lib/fileSaver/exportToXLSX";
 import { dateFormatter, priceFormatter } from "@/lib/utils/formatter";
@@ -86,10 +86,7 @@ export function InvoiceSumary(groupedItems: GroupedItems){
                     Repasse: {priceFormatter.format(onlending)}
                 </h2>
             </div>
-            <footer className="flex gap-2">
-                <Dialog.Close>
-                    <Button variant="soft">Fechar</Button>
-                </Dialog.Close>
+            <footer className="flex w-full justify-center">
                 <Button color="green" variant="soft" onClick={() => exportToExcel(tableRows)}>Exportar XLSX</Button>
             </footer>
         </div>

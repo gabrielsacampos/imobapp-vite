@@ -1,9 +1,9 @@
 
 import { Button, Dialog } from "@radix-ui/themes";
+import { CheckCircle2Icon } from "lucide-react";
 import { FormEvent, useState } from "react";
 import { toast } from "sonner";
 
-import { InvoiceDialogDetailsProps } from "./InvoiceDialog";
 
 
 
@@ -16,18 +16,19 @@ export interface InvoiceEmitterProps {
 //should be a form
 export function InvoiceEmitter(props: InvoiceEmitterProps){
     
-    
+    const [emittionSent, setEmittionSent] = useState(false)
     const [emittButtonDisabled, setEmittButtonDisabled] = useState(false); 
     const [emittButtonLabel, setEmittButtonLabel] = useState('Emitir');
     
+    if(emittionSent){
+        return <EmittionSent />
+    }
 
 
-    async function handleEmitterButtonClick(event: FormEvent<HTMLFormElement>){
+    async function handleEmitterButtonClick(){
         setEmittButtonDisabled(true)
-        setEmittButtonLabel('Aguarde')
-        event.preventDefault()
+        setEmittButtonLabel('Aguarde')        
         toast.success("Nota fiscal enviada para emissão.")
-        
     }
     
     
@@ -50,7 +51,7 @@ export function InvoiceEmitter(props: InvoiceEmitterProps){
             <div className=" h-3/4 pl-3 mt-5">
                 <p className="font-semibold text-zinc-600">Proprietário: <span className="font-normal">{props.owner_name}</span></p>
                 <p className="font-semibold text-zinc-600">CPF/CNPJ: <span>{props.owner_document}</span></p>
-                <p className="font-semibold text-zinc-600">Valor da Nota: <span>{props.managemet_fee}</span></p>
+                <p className="font-semibold text-zinc-600">Valor da Nota: <span>{props.management_fee}</span></p>
                 <p className="font-semibold text-zinc-600">ISS Retido: <span>Não</span></p>
 
                 <h1 className=" mt-2  text-zinc-600">Descrição:</h1>
@@ -59,28 +60,29 @@ export function InvoiceEmitter(props: InvoiceEmitterProps){
 
 
             </div>
-            <footer className=" flex gap-2 justify-center  m-5">
-                
-                <Dialog.Trigger>
+            <footer className=" flex gap-2 justify-center  m-5">                
+                <Dialog.Close>
                     <Button 
                         className="w-1/2"
-                        variant="outline"
+                        onClick={handleEmitterButtonClick}
+                        disabled={emittButtonDisabled}
                     >
-                        Cancelar
+                        {emittButtonLabel}
                     </Button>
-                </Dialog.Trigger>
-                <Dialog.Close >
-                <Button 
-                    className="w-1/2"
-                    onClick={handleEmitterButtonClick}
-                    disabled={emittButtonDisabled}
-                >
-                    {emittButtonLabel}</Button>
                 </Dialog.Close>
             </footer>
         </div>
            )
 }
 
+export function EmittionSent(){
+    return (
+        <div className="flex flex-col w-full h-full items-center">
+            <h1 className="text-xl font-bold text-zinc-500">Nota fiscal enviada para emissão</h1>
+            <p className="text-zinc-400"> em breve o status será atualizado</p>
+            <CheckCircle2Icon className="w-20 h-20 text-green-500 mt-5" />
 
+        </div>
+    )
+}
 

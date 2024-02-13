@@ -1,15 +1,11 @@
 
 import { DialogClose } from "@radix-ui/react-dialog";
-import { Cross2Icon, ExclamationTriangleIcon } from "@radix-ui/react-icons";
-import { Button,Callout, Dialog } from "@radix-ui/themes";
-import { CheckCircle, Circle } from "lucide-react";
+import { Cross2Icon } from "@radix-ui/react-icons";
+import { Button, Dialog } from "@radix-ui/themes";
 import { ButtonProps } from "node_modules/@radix-ui/themes/dist/esm/components/button";
-import { CalloutRootProps } from "node_modules/@radix-ui/themes/dist/esm/components/callout";
 
 import { ISharedClouseoutPageData } from "@/lib/axios/api";
 
-import { InvoiceEmitter } from "./InvoiceEmitter";
-import { InvoiceStatement } from "./InvoiceStatement";
 
 
 export interface InvoiceDialogDetailsProps {
@@ -27,10 +23,10 @@ export function InvoiceDialog(props: InvoiceDialogDetailsProps) {
                 invoiceStatus={props.invoiceStatus}
             />
             <Dialog.Content className="h-auto">
-                <DialogClose>
-                    <button className="IconButton" aria-label="Close">
-                        <Cross2Icon />
-                    </button>
+                <DialogClose className="w-full flex justify-end">
+                        <button className="IconButton" aria-label="Close">
+                            <Cross2Icon />
+                        </button>
                 </DialogClose>
                 {props.children}
             </Dialog.Content>
@@ -101,44 +97,4 @@ export function InvoiceDialogTrigger({contentType, invoiceStatus}: InvoiceDialog
             </Button>
         </Dialog.Trigger>
     )
-}
-
-
-
-
-function InvoiceDialogInfo(invoiceStatus){
-    let message: string = '';
-    let color: CalloutRootProps['color'] = 'blue'; 
-    let icon: React.ReactNode;
-
-    switch(invoiceStatus){
-        case 'AUTHORIZED':
-            message = 'Nota fiscal emitida com sucesso!';
-            color = 'green';
-            icon = <CheckCircle size={10} />
-            break;
-        case 'PENDING':
-            message = 'Nota fiscal enviada para processamento';
-            color = 'blue';
-            icon = <Circle size={10} />
-            break;
-        case "ERROR":
-            message = 'Falha ao emitir nota fiscal. Contate o desenvolvedor';
-            color = 'red';
-            icon = <ExclamationTriangleIcon />
-            break;   
-    }
-
-
-    return(
-        <Callout.Root color={color} variant="soft">
-            <Callout.Icon>
-                {icon}
-            </Callout.Icon>
-            <Callout.Text>
-                {message}
-            </Callout.Text>
-        </Callout.Root>
-    )
-
 }
