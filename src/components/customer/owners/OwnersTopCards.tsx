@@ -1,8 +1,8 @@
+import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import { Callout, Card } from "@radix-ui/themes";
 import { AlertCircle, Building, CheckCircle, DollarSign } from "lucide-react";
 
 import { priceFormatter } from "@/lib/utils/formatter";
-import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 
 
 const isLoading = false;
