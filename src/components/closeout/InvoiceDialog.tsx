@@ -1,5 +1,6 @@
 
-import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
+import { DialogClose } from "@radix-ui/react-dialog";
+import { Cross2Icon, ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import { Button,Callout, Dialog } from "@radix-ui/themes";
 import { CheckCircle, Circle } from "lucide-react";
 import { ButtonProps } from "node_modules/@radix-ui/themes/dist/esm/components/button";
@@ -8,22 +9,62 @@ import { CalloutRootProps } from "node_modules/@radix-ui/themes/dist/esm/compone
 import { ISharedClouseoutPageData } from "@/lib/axios/api";
 
 import { InvoiceEmitter } from "./InvoiceEmitter";
+import { InvoiceStatement } from "./InvoiceStatement";
 
 
 export interface InvoiceDialogDetailsProps {
-    items: ISharedClouseoutPageData[];
-    invoiceStatus: 'PENDING' | 'AUTHORIZED' | 'ERROR' | null;
+    children: React.ReactNode;
+    invoiceStatus: ISharedClouseoutPageData['invoice_status'];
+    contentType: 'emitter' | 'statement';
 }
 
-export function InvoiceDialogDetails(props: InvoiceDialogDetailsProps) {
-    const invoiceStatus = props.invoiceStatus;
+export function InvoiceDialog(props: InvoiceDialogDetailsProps) {
+    
+    return (
+        <Dialog.Root>
+            <InvoiceDialogTrigger 
+                contentType={props.contentType} 
+                invoiceStatus={props.invoiceStatus}
+            />
+            <Dialog.Content className="h-auto">
+                <DialogClose>
+                    <button className="IconButton" aria-label="Close">
+                        <Cross2Icon />
+                    </button>
+                </DialogClose>
+                {props.children}
+            </Dialog.Content>
+        </Dialog.Root>
+    );
+}
+
+
+
+export interface InvoiceDialogTriggerProps {
+    contentType: InvoiceDialogDetailsProps['contentType'];
+    invoiceStatus: ISharedClouseoutPageData['invoice_status'];
+}
+
+export function InvoiceDialogTrigger({contentType, invoiceStatus}: InvoiceDialogTriggerProps){
+
+
+    if(contentType === 'statement'){
+        return (
+            <Dialog.Trigger>
+                <Button 
+                    variant="ghost" 
+                    size="1"
+                    >
+                    Visualizar
+                </Button>
+            </Dialog.Trigger>
+        )
+    }
+
     let openDialoglabel: string = ''
     let opendDialogButtonColor: ButtonProps['color'];
     let openDialogButtonVariant: ButtonProps['variant'];
-    let dialogContentComponent: React.ReactNode = <></>
     
-    
-
     switch(invoiceStatus){
         case 'AUTHORIZED':
             openDialoglabel = 'Autorizada';
@@ -35,7 +76,7 @@ export function InvoiceDialogDetails(props: InvoiceDialogDetailsProps) {
             openDialoglabel = 'Pendente';
             opendDialogButtonColor = 'yellow';
             openDialogButtonVariant = 'outline';
-            dialogContentComponent = <InvoiceEmitter {...props} />
+            
             break;
         case 'ERROR':
             openDialoglabel = 'Falha';
@@ -49,29 +90,23 @@ export function InvoiceDialogDetails(props: InvoiceDialogDetailsProps) {
             break;
     }
 
-    
     return (
-        <Dialog.Root>
-            <Dialog.Trigger>
-               <Button
-                    color={opendDialogButtonColor}
-                    variant={openDialogButtonVariant}
-                    className="h-[10px]"
-               >{openDialoglabel}</Button>
-            </Dialog.Trigger>
-            <Dialog.Content className="h-auto">
-                <header>
-                    {InvoiceDialogInfo(invoiceStatus)}
-                </header>
-                {dialogContentComponent}
-            </Dialog.Content>
-        </Dialog.Root>
-    );
+        <Dialog.Trigger>
+            <Button
+                color={opendDialogButtonColor}
+                variant={openDialogButtonVariant}
+                style={{ height: '20px'}}
+            >
+                {openDialoglabel}
+            </Button>
+        </Dialog.Trigger>
+    )
 }
 
 
 
-function InvoiceDialogInfo(invoiceStatus: InvoiceDialogDetailsProps['invoiceStatus']){
+
+function InvoiceDialogInfo(invoiceStatus){
     let message: string = '';
     let color: CalloutRootProps['color'] = 'blue'; 
     let icon: React.ReactNode;

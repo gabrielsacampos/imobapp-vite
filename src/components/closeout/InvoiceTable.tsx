@@ -1,9 +1,12 @@
 
 
+import { Card, Table } from "@radix-ui/themes";
+
 import { ISharedClouseoutPageData } from "@/lib/axios/api";
 import { priceFormatter } from '@/lib/utils/formatter';
-import { Card, Table, TableColumnHeaderCell } from "@radix-ui/themes";
-import { InvoiceDialogDetails } from "./InvoiceDialogDetails";
+
+import { InvoiceDialog } from "./InvoiceDialog";
+import { InvoiceEmitter } from "./InvoiceEmitter";
 import { InvoiceSumary } from "./InvoiceSumary";
 
 
@@ -90,10 +93,14 @@ export function InvoiceTable({items}: InvoiceTableProps){
                                     </Table.Cell>
                                     
                                     <Table.Cell>
-                                        <InvoiceDialogDetails items={group.ownerItems} invoiceStatus={"PENDING"} />
+                                        <InvoiceDialog contentType="emitter" invoiceStatus={"PENDING"}>
+                                            <InvoiceEmitter {...group} />
+                                        </InvoiceDialog>
                                     </Table.Cell>
                                     <Table.Cell>
-                                        <InvoiceSumary {...group}/>
+                                        <InvoiceDialog contentType="statement" invoiceStatus={"PENDING"}>
+                                            <InvoiceSumary {...group}/>
+                                        </InvoiceDialog>
                                     </Table.Cell>
                                 </Table.Row>
                             ))}

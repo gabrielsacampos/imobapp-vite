@@ -64,41 +64,34 @@ export function InvoiceSumary(groupedItems: GroupedItems){
     })
     
 
-console.log(tableRows)
-
     return(
-        <Dialog.Root>
-            <Dialog.Trigger>
-                <Button variant="ghost" size="1">Visualizar</Button>
-            </Dialog.Trigger>
-            <Dialog.Content>
-                <header>
-                    <h1 className="text-xl font-bold text-zinc-600">Resumo da Nota</h1>
-                </header>
-                <div className="flex flex-col gap-2 my-5">
-                    <h2 className="text-lg font-semibold text-zinc-500">
-                        Proprietário: {owner_name}
-                    </h2>
-                    <h2 className="text-lg font-semibold text-zinc-500">
-                        Total pago: {priceFormatter.format(totalCredit) }
-                    </h2>
-                    <h2 className="text-lg font-semibold text-zinc-500">
-                        Retido: {priceFormatter.format(retained)}
-                    </h2>
-                    <h2 className="text-lg font-semibold text-zinc-500">
-                        Comissão: {priceFormatter.format(management_fee)}
-                    </h2>
-                    <h2 className="text-lg font-semibold text-zinc-500">
-                        Repasse: {priceFormatter.format(onlending)}
-                    </h2>
-                </div>
-                <footer className="flex gap-2">
-                    <Dialog.Close>
-                        <Button variant="soft">Fechar</Button>
-                    </Dialog.Close>
-                   <Button color="green" variant="soft" onClick={() => exportToExcel(tableRows)}>Exportar XLSX</Button>
-                </footer>
-            </ Dialog.Content>
-        </Dialog.Root>
+        <div>
+            <header>
+                <h1 className="text-xl font-bold text-zinc-600">Resumo da Nota</h1>
+            </header>
+            <div className="flex flex-col gap-2 my-5">
+                <h2 className="text-lg font-semibold text-zinc-500">
+                    Proprietário: {owner_name}
+                </h2>
+                <h2 className="text-lg font-semibold text-zinc-500">
+                    Total pago: {priceFormatter.format(totalCredit) }
+                </h2>
+                <h2 className="text-lg font-semibold text-zinc-500">
+                    Retido: {priceFormatter.format(retained)}
+                </h2>
+                <h2 className="text-lg font-semibold text-zinc-500">
+                    Comissão: {priceFormatter.format(management_fee)}
+                </h2>
+                <h2 className="text-lg font-semibold text-zinc-500">
+                    Repasse: {priceFormatter.format(onlending)}
+                </h2>
+            </div>
+            <footer className="flex gap-2">
+                <Dialog.Close>
+                    <Button variant="soft">Fechar</Button>
+                </Dialog.Close>
+                <Button color="green" variant="soft" onClick={() => exportToExcel(tableRows)}>Exportar XLSX</Button>
+            </footer>
+        </div>
     )
 }

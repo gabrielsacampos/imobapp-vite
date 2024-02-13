@@ -1,27 +1,33 @@
 
 import { Button, Dialog } from "@radix-ui/themes";
-import { useEffect, useState } from "react";
-
-import { InvoiceDialogDetailsProps } from "./InvoiceDialogDetails";
+import { FormEvent, useState } from "react";
 import { toast } from "sonner";
 
+import { InvoiceDialogDetailsProps } from "./InvoiceDialog";
 
+
+
+export interface InvoiceEmitterProps {
+    owner_name: string;
+    owner_document: string;
+    management_fee: number;
+    
+}
 //should be a form
-export function InvoiceEmitter(props: InvoiceDialogDetailsProps){
-    const owner_name = props.items[0].owner_name;
-    const owner_document = props.items[0].owner_document;
-    const invoice_value = props.items.reduce((acc, curr) => acc+= curr.value, 0)
+export function InvoiceEmitter(props: InvoiceEmitterProps){
+    
     
     const [emittButtonDisabled, setEmittButtonDisabled] = useState(false); 
     const [emittButtonLabel, setEmittButtonLabel] = useState('Emitir');
     
 
 
-    async function handleEmitterButtonClick(){
-        toast.success("Nota fiscal enviada para emissão.")
+    async function handleEmitterButtonClick(event: FormEvent<HTMLFormElement>){
         setEmittButtonDisabled(true)
         setEmittButtonLabel('Aguarde')
-        console.log(emittButtonDisabled, emittButtonLabel)
+        event.preventDefault()
+        toast.success("Nota fiscal enviada para emissão.")
+        
     }
     
     
@@ -40,11 +46,11 @@ export function InvoiceEmitter(props: InvoiceDialogDetailsProps){
         )  
     }
     return(
-        <div >
+        <div>
             <div className=" h-3/4 pl-3 mt-5">
-                <p className="font-semibold text-zinc-600">Proprietário: <span className="font-normal">{owner_name}</span></p>
-                <p className="font-semibold text-zinc-600">CPF/CNPJ: <span>{owner_document}</span></p>
-                <p className="font-semibold text-zinc-600">Valor da Nota: <span>{invoice_value}</span></p>
+                <p className="font-semibold text-zinc-600">Proprietário: <span className="font-normal">{props.owner_name}</span></p>
+                <p className="font-semibold text-zinc-600">CPF/CNPJ: <span>{props.owner_document}</span></p>
+                <p className="font-semibold text-zinc-600">Valor da Nota: <span>{props.managemet_fee}</span></p>
                 <p className="font-semibold text-zinc-600">ISS Retido: <span>Não</span></p>
 
                 <h1 className=" mt-2  text-zinc-600">Descrição:</h1>
@@ -54,14 +60,22 @@ export function InvoiceEmitter(props: InvoiceDialogDetailsProps){
 
             </div>
             <footer className=" flex gap-2 justify-center  m-5">
+                
+                <Dialog.Trigger>
+                    <Button 
+                        className="w-1/2"
+                        variant="outline"
+                    >
+                        Cancelar
+                    </Button>
+                </Dialog.Trigger>
+                <Dialog.Close >
                 <Button 
                     className="w-1/2"
                     onClick={handleEmitterButtonClick}
                     disabled={emittButtonDisabled}
                 >
                     {emittButtonLabel}</Button>
-                <Dialog.Close >
-                    <Button className="w-1/2" color="gray" variant="soft">Cancelar</Button>
                 </Dialog.Close>
             </footer>
         </div>
