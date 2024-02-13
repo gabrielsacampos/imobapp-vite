@@ -1,6 +1,6 @@
 
 
-import { Card, Table } from "@radix-ui/themes";
+import { Button, Card, HoverCard, Table } from "@radix-ui/themes";
 
 import { ISharedClouseoutPageData } from "@/lib/axios/api";
 import { priceFormatter } from '@/lib/utils/formatter';
@@ -8,6 +8,7 @@ import { priceFormatter } from '@/lib/utils/formatter';
 import { InvoiceDialog } from "./InvoiceDialog";
 import { InvoiceEmitter } from "./InvoiceEmitter";
 import { InvoiceSumary } from "./InvoiceSumary";
+import { InfoCircledIcon } from "@radix-ui/react-icons";
 
 
 
@@ -74,7 +75,7 @@ export function InvoiceTable({items}: InvoiceTableProps){
                     <Table.RowHeaderCell> Proprietário </Table.RowHeaderCell>   
                     <Table.RowHeaderCell>Nota</Table.RowHeaderCell>
                     <Table.RowHeaderCell>Repasse</Table.RowHeaderCell>
-                    <Table.RowHeaderCell>Detalhes</Table.RowHeaderCell>
+                    <Table.RowHeaderCell className="flex items-center gap-1">Situação <span><InvoiceStatusCaption /></span></Table.RowHeaderCell>
                     <Table.RowHeaderCell>Extrato</Table.RowHeaderCell>
                 </ Table.Row>
             </Table.Header>
@@ -123,7 +124,23 @@ export function InvoiceTable({items}: InvoiceTableProps){
 
 
 
-
+export function InvoiceStatusCaption(){
+    return (
+        <HoverCard.Root>
+                            <HoverCard.Trigger>
+                                <InfoCircledIcon />
+                            </HoverCard.Trigger>
+                            <HoverCard.Content>
+                                <div className="flex flex-col gap-1">
+                                    <p className="text-xs"><span className="text-orange-500">Pendente</span>: é necessária alguma ação.</p>
+                                    <p className="text-xs"><span className="text-blue-500">Enviada</span>: Nota enviada à espera de atualização.</p>
+                                    <p className="text-xs"><span className="text-green-500">Autorizada</span>: Nota enviada e autorizada.</p>
+                                    <p className="text-xs"><span className="text-red-500">Falha</span>: Algum erro ocorreu na emissão.</p>
+                                </div>
+                            </HoverCard.Content>
+                        </HoverCard.Root> 
+    )
+}
 
 
 

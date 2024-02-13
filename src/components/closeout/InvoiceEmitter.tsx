@@ -2,7 +2,6 @@
 
 import { Button, Dialog } from "@radix-ui/themes";
 import { useForm} from "react-hook-form";
-import { toast } from "sonner";
 import {z} from "zod";
 
 import WomanSentCheck from '../../svg/woman-sent-check.svg'
@@ -29,10 +28,7 @@ export function InvoiceEmitter(props: InvoiceEmitterProps){
     
 
     async function handleEmitterButtonClick(){
-        
         console.log(isSubmitting, isSubmitted)
-
-        
     }
     
 
