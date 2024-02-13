@@ -1,6 +1,6 @@
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
-import { Callout, Card } from "@radix-ui/themes";
-import { AlertCircle, Building, CheckCircle, DollarSign } from "lucide-react";
+import { Badge, Callout, Card } from "@radix-ui/themes";
+import { AlertCircle, ArrowUpLeftIcon, ArrowUpRightIcon, Building, CheckCircle, DollarSign } from "lucide-react";
 
 import { priceFormatter } from "@/lib/utils/formatter";
 
@@ -28,7 +28,7 @@ const data = {
         },
         {
             code: "123",
-            value: 123,
+            value: 123000,
             tenant_name: "John Doe",
             property: "Rua das Flores",
         }
@@ -101,7 +101,7 @@ const data = {
 
 }
 
-const error = true;
+const error = false;
 
 
 export function OwnersTopCards(){
@@ -134,23 +134,27 @@ export function OwnersTopCards(){
     const topCards = [
         {
             title: "Contratos Ativos",
-            value: activeLeasesCount,
+            value_1: priceFormatter.format(activeLeasesValue),
+            value_2: activeLeasesCount,
             icon: <CheckCircle size={15}/>
         },
         {
-            title: "Total em contratos",
-            value: priceFormatter.format(activeLeasesValue),
-            icon: <DollarSign size={15}/>
-        },
-        {
             title: "Imóveis disponíveis",
-            value: availablePropertiesCount,
+            value_1: availablePropertiesCount,
+            value_2: availablePropertiesCount+10,
             icon: <Building size={15}/>
         },
         {
             title: "Contratos a vencer",
-            value: leasesToExpireCount,
+            value_1: priceFormatter.format(leasesToExpireCount+1000),
+            value_2: leasesToExpireCount,
             icon: <AlertCircle size={15}/>
+        },
+        {
+            title: "Reajustes",
+            value_1: priceFormatter.format(leasesToExpireCount+1000),
+            value_2: <div className="flex items-center gap-1 text-blue-400 font-semibold"><ArrowUpRightIcon size={10}/>  {leasesToExpireCount}%</div>,
+            icon: <ArrowUpRightIcon size={15}/>
         }
     
     ]
@@ -161,16 +165,19 @@ export function OwnersTopCards(){
     }
 
     return(
-        <div className=" grid grid-cols-1 sm:grid-cols-2 gap-3 place-items-center">
+        <div className=" grid grid-cols-1 sm:grid-cols-4 gap-3 place-items-center">
             {topCards.map((card) => {
                 return (
-                    <Card color="gray" className="w-[300px] h-[80px]">
+                    <Card color="gray" className="w-[300px] sm:w-[210px] h-[80px]">
                         <div className="flex flex-col justify-between h-full" >
                             <header className="flex items-center justify-between">
                                 <h1>{card.title}</h1>
                                 {card.icon}
                             </header>
-                            <p className="text-xl font-bold text-zinc-500">{card.value}</p>
+                            <div className="flex items-center gap-1 justify-between" >
+                                <p className="text-xl font-bold text-zinc-500">{card.value_1}</p> 
+                                <p className="text-sm font-light italic text-zinc-400 flex items-center gap-1"> /  {card.value_2}</p>
+                            </div>
                         </div>
                     </Card>
                 )
