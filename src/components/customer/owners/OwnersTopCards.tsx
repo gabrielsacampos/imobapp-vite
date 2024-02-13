@@ -3,6 +3,7 @@ import { Badge, Callout, Card } from "@radix-ui/themes";
 import { AlertCircle, ArrowUpLeftIcon, ArrowUpRightIcon, Building, CheckCircle, DollarSign } from "lucide-react";
 
 import { priceFormatter } from "@/lib/utils/formatter";
+import { OwnersDialog } from "./OwnersDialog";
 
 
 const isLoading = false;
@@ -134,24 +135,28 @@ export function OwnersTopCards(){
     const topCards = [
         {
             title: "Contratos Ativos",
+            contentType: "leases",
             value_1: priceFormatter.format(activeLeasesValue),
             value_2: activeLeasesCount,
             icon: <CheckCircle size={15}/>
         },
         {
             title: "Imóveis disponíveis",
+            contentType: "properties",
             value_1: availablePropertiesCount,
             value_2: availablePropertiesCount+10,
             icon: <Building size={15}/>
         },
         {
             title: "Contratos a vencer",
+            contentType: "leases",
             value_1: priceFormatter.format(leasesToExpireCount+1000),
             value_2: leasesToExpireCount,
             icon: <AlertCircle size={15}/>
         },
         {
             title: "Reajustes",
+            contentType: "leases",
             value_1: priceFormatter.format(leasesToExpireCount+1000),
             value_2: <div className="flex items-center gap-1 text-blue-400 font-semibold"><ArrowUpRightIcon size={10}/>  {leasesToExpireCount}%</div>,
             icon: <ArrowUpRightIcon size={15}/>
@@ -168,18 +173,20 @@ export function OwnersTopCards(){
         <div className=" grid grid-cols-1 sm:grid-cols-4 gap-3 place-items-center">
             {topCards.map((card) => {
                 return (
-                    <Card color="gray" className="w-[300px] sm:w-[210px] h-[80px]">
-                        <div className="flex flex-col justify-between h-full" >
-                            <header className="flex items-center justify-between">
-                                <h1>{card.title}</h1>
-                                {card.icon}
-                            </header>
-                            <div className="flex items-center gap-1 justify-between" >
-                                <p className="text-xl font-bold text-zinc-500">{card.value_1}</p> 
-                                <p className="text-sm font-light italic text-zinc-400 flex items-center gap-1"> /  {card.value_2}</p>
+                    <OwnersDialog contentType={card.contentType}>
+                        <Card color="gray" className="w-[300px] sm:w-[210px] h-[80px]">
+                            <div className="flex flex-col justify-between h-full" >
+                                <header className="flex items-center justify-between">
+                                    <h1>{card.title}</h1>
+                                    {card.icon}
+                                </header>
+                                <div className="flex items-center gap-1 justify-between" >
+                                    <p className="text-xl font-bold text-zinc-500">{card.value_1}</p> 
+                                    <p className="text-sm font-light italic text-zinc-400 flex items-center gap-1"> /  {card.value_2}</p>
+                                </div>
                             </div>
-                        </div>
-                    </Card>
+                        </Card>
+                    </OwnersDialog>
                 )
             })}
         </div>
