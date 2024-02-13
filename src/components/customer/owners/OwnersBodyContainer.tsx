@@ -1,11 +1,10 @@
 import { EyeOpenIcon, FileIcon } from "@radix-ui/react-icons";
 import { Card, Tabs } from "@radix-ui/themes";
 
-import { useOwnersBodyContainer } from "@/hooks/useOwnersBodyContainer";
+import { IPendingPayments } from "@/lib/axios/api";
 
 import { OwnersInvoicesCard } from "./OwnersInvoicesCards";
 import { OwnersPendingPaymentsCard } from "./OwnersPendingPaymentsCards";
-import { IPendingPayments } from "@/lib/axios/api";
 
 
 export interface OwnersBodyContainerProps {
@@ -23,7 +22,7 @@ export function OwnersBodyContainer(props: OwnersBodyContainerProps){
 
     return (
             
-        <Card className="max-w-[300px] sm:max-w-full">
+        <Card className="w-full" mx="2">
             <Tabs.Root mb="2" defaultValue="invoices">
                 <Tabs.List>
                     <Tabs.Trigger value="invoices" >

@@ -1,6 +1,8 @@
-import { priceFormatter } from "@/lib/utils/formatter";
-import { Card } from "@radix-ui/themes";
+import { Callout, Card } from "@radix-ui/themes";
 import { AlertCircle, Building, CheckCircle, DollarSign } from "lucide-react";
+
+import { priceFormatter } from "@/lib/utils/formatter";
+import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 
 
 const isLoading = false;
@@ -98,7 +100,8 @@ const data = {
 
 
 }
-const error = null;
+
+const error = true;
 
 
 export function OwnersTopCards(){
@@ -112,6 +115,20 @@ export function OwnersTopCards(){
     const availablePropertiesCount = properties_list.filter(property => property.available).length
     const leasesToExpireCount = leases_to_expire.length
 
+
+
+    if(error){
+        return(
+            <Callout.Root color="red">
+                <Callout.Icon>
+                    <ExclamationTriangleIcon />
+                </Callout.Icon>
+                <Callout.Text>
+                    Erro ao carregar os dados. Contate o desenvolvedor.
+                </Callout.Text>
+            </Callout.Root>
+        )
+    }
 
 
     const topCards = [
@@ -145,7 +162,7 @@ export function OwnersTopCards(){
 
     return(
         <div className=" grid grid-cols-1 sm:grid-cols-2 gap-3 place-items-center">
-            {topCards.map((card, index) => {
+            {topCards.map((card) => {
                 return (
                     <Card color="gray" className="w-[300px] h-[80px]">
                         <div className="flex flex-col justify-between h-full" >
