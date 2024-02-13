@@ -1,7 +1,7 @@
 
 import { Button, Dialog } from "@radix-ui/themes";
 import { CheckCircle2Icon } from "lucide-react";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 
 
@@ -16,13 +16,9 @@ export interface InvoiceEmitterProps {
 //should be a form
 export function InvoiceEmitter(props: InvoiceEmitterProps){
     
-    const [emittionSent, setEmittionSent] = useState(false)
     const [emittButtonDisabled, setEmittButtonDisabled] = useState(false); 
     const [emittButtonLabel, setEmittButtonLabel] = useState('Emitir');
-    
-    if(emittionSent){
-        return <EmittionSent />
-    }
+  
 
 
     async function handleEmitterButtonClick(){

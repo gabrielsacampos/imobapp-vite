@@ -17,7 +17,7 @@ interface GroupedItems {
         description: string;
         value: number;
     }[]
-};
+}
 
 
 export function InvoiceSumary(groupedItems: GroupedItems){
