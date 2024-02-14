@@ -2,9 +2,9 @@
 
 
 
-import { OwnersMain } from "@/components/customer/owners/OwnersMain";
+import { OwnersMain } from "@/pages/customer/Me/components/owners/OwnersMain";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../components/ui/tabs";
 
 
 

@@ -1,8 +1,8 @@
 import { ISharedClouseoutPageData } from "@/lib/axios/api";
+ import WomanDrinkCoffee from '@/svg/woman-drink-coffee.svg'
 
- import WomanDrinkCoffee from '../../svg/woman-drink-coffee.svg'
-import { Badge } from "../ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import { Badge } from "../../../../components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../../components/ui/tabs";
 import { InvoiceTable } from "./InvoiceTable";
 
 

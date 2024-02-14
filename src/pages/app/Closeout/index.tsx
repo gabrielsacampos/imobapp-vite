@@ -1,9 +1,9 @@
 
 
 
-import {  InvoiceTableContainer } from "@/components/closeout/InvoiceTableContainer";
-import { TopInfo } from "@/components/closeout/TopInfo";
 import { useCloseoutData } from "@/hooks/useCloseoutData";
+import {  InvoiceTableContainer } from "@/pages/app/Closeout/components/InvoiceTableContainer";
+import { TopInfo } from "@/pages/app/Closeout/components/TopInfo";
 
 
 

@@ -141,13 +141,6 @@ export function OwnersTopCards(){
             icon: <CheckCircle size={15}/>
         },
         {
-            title: "Imóveis disponíveis",
-            contentType: "properties",
-            value_1: availablePropertiesCount,
-            value_2: availablePropertiesCount+10,
-            icon: <Building size={15}/>
-        },
-        {
             title: "Contratos a vencer",
             contentType: "leases",
             value_1: priceFormatter.format(leasesToExpireCount+1000),
@@ -160,7 +153,14 @@ export function OwnersTopCards(){
             value_1: priceFormatter.format(leasesToExpireCount+1000),
             value_2: <div className="flex items-center gap-1 text-blue-400 font-semibold"><ArrowUpRightIcon size={10}/>  {leasesToExpireCount}%</div>,
             icon: <ArrowUpRightIcon size={15}/>
-        }
+        },
+        {
+            title: "Imóveis disponíveis",
+            contentType: "properties",
+            value_1: availablePropertiesCount,
+            value_2: availablePropertiesCount+10,
+            icon: <Building size={15}/>
+        },
     
     ]
 
@@ -173,7 +173,10 @@ export function OwnersTopCards(){
         <div className=" grid grid-cols-1 sm:grid-cols-4 gap-3 place-items-center">
             {topCards.map((card) => {
                 return (
-                    <OwnersDialog contentType={card.contentType}>
+                    <OwnersDialog 
+                        contentType={card.contentType}
+                        
+                    >
                         <Card color="gray" className="w-[300px] sm:w-[210px] h-[80px]">
                             <div className="flex flex-col justify-between h-full" >
                                 <header className="flex items-center justify-between">
