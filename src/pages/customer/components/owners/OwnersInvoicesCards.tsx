@@ -1,7 +1,7 @@
 import { Badge, Card } from "@radix-ui/themes";
 import { DatePicker } from 'antd';
 
-import { mock } from "@/pages/customer/Me/mock";
+import { mock } from "@/pages/customer/mock";
 
 import { OwnersInvoiceDialog } from "./OwnersInvoiceDialog";
 

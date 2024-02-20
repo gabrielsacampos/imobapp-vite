@@ -4,6 +4,7 @@ import { RouterProvider } from 'react-router-dom'
 
 import { AuthContext } from './contexts/AuthContext'
 import { router } from './routes'
+import { Spin } from 'antd'
 
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
@@ -18,7 +19,11 @@ export function App() {
   const { user, isAuthorized, isAuthorizing } = useContext(AuthContext)
 
   if(isAuthorizing){
-      return <h1>Loading...</h1>
+      return (
+        <div className='flex items-center justify-center w-full h-screen'>
+            <Spin size='large'/>
+        </div>
+      )
   }
 
   if(!isAuthorized){

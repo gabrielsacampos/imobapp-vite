@@ -90,8 +90,10 @@ export interface IPendingPayments{
   }[]
 }
 
+
 export interface IUsers {
   id: string;
+  role: ["ADMIN" | "USER" | "TENANT" | "OWNER"];
   customer_id: string;
   external_id: string;
   firstname: string;

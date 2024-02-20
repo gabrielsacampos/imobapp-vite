@@ -13,17 +13,15 @@ export function useAuth(){
     const {data: registeredUsers} = useQuery(
         { queryKey: ['users'], queryFn: apiClient.getUsers }
     )
-    const {user, isLoaded} = useUser()
+    const {user: clerkUser, isLoaded} = useUser()
 
-    console.log(user, isLoaded)
-
-    const foundRegisteredUser = registeredUsers?.find(registeredUser => registeredUser.email === user?.emailAddresses[0].emailAddress)
+    const user = registeredUsers?.find(registeredUser => registeredUser.email === clerkUser?.emailAddresses[0].emailAddress)
 
     if(isLoaded){
         isAuthorizing = false
     }
     
-    if(!foundRegisteredUser){
+    if(!user){
         isAuthorized = false
     }else{
         isAuthorized = true

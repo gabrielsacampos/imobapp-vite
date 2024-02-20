@@ -2,11 +2,9 @@ import { SignedIn, SignedOut } from "@clerk/clerk-react";
 import { Outlet } from "react-router-dom";
 
 import { SignIn } from "../auth/sign-in";
-import { Header } from "../customer/Me/components/Header";
+import { Header } from "../customer/components/Header";
 
 export function CustomerLayout(){
-
-
 
     return(
         <>

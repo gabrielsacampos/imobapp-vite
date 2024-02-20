@@ -1,5 +1,6 @@
+import { UserButton } from "@clerk/clerk-react";
+
 import Logo from "@/components/Logo";
-import { SignUpButton, UserButton } from "@clerk/clerk-react";
 
 export function Header(){
     return (

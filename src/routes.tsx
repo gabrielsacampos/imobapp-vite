@@ -6,7 +6,7 @@ import { CustomerLayout } from './pages/_layouts/customer'
 import { Closeout } from './pages/app/Closeout'
 import { Dashboard } from './pages/app/Dashboard'
 import { SignIn } from './pages/auth/sign-in'
-import { Customer } from './pages/customer/Me'
+import { Customer } from './pages/customer'
 
 export const router = createBrowserRouter([
     {
