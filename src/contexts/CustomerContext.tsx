@@ -34,10 +34,6 @@ interface CustomerProviderProps{
 const CustomerContext = createContext({} as CustomerContextType)
 
 export function CustomerProvider({children}: CustomerProviderProps){
-    // const {user, isSignedIn, isLoaded} = useUser()
-    // const data = useCustomers()
-
-    // console.log(data)
 
     return (
         <CustomerContext.Provider value={{} as CustomerContextType}>

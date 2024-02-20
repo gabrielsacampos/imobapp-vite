@@ -1,7 +1,7 @@
+import { UserButton } from "@clerk/clerk-react";
 import { ChevronsLeft } from "lucide-react";
 import { useState } from "react";
 
-import AvatarSvg from '../svg/male-avatar.svg';
 import Logo from "./Logo";
 import { Sidebar } from "./Sidebar";
 
@@ -23,7 +23,7 @@ export function Header() {
             <Logo />
         </div>
 
-        <img src={AvatarSvg} width={40} height={40}/>
+        <UserButton />
       </header>
 
       <Sidebar opened={sidebarOpened} />
