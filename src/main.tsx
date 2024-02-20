@@ -14,10 +14,13 @@ if (!PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key")
 }
 
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Theme>
-      <ClerkProvider publishableKey={PUBLISHABLE_KEY as string}>
+      <ClerkProvider 
+        publishableKey={PUBLISHABLE_KEY as string}
+      >
         <App />
       </ClerkProvider>
     </Theme>

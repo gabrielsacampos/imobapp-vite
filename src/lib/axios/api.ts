@@ -10,7 +10,7 @@ export const api = axios.create({
   baseURL: `${import.meta.env.VITE_IMOBAPP_URL}`,
   timeout: 10000,
   headers: {
-    Authorization: `Bearer ${import.meta.env.VITE_IMOBAPP_SECRET}`,
+    "access_token": `${import.meta.env.VITE_IMOBAPP_SECRET}`,
   },
 });
 
@@ -90,6 +90,14 @@ export interface IPendingPayments{
   }[]
 }
 
+export interface IUsers {
+  id: string;
+  customer_id: string;
+  external_id: string;
+  firstname: string;
+  lastname: string;
+  email: string;
+}
 class ApiClient {
   
   // getTopCards(): Promise<ITopCards>{
@@ -108,6 +116,11 @@ class ApiClient {
   //   return api.get('/finances').then((res) => res.data)
   // }  
 
+
+  getUsers(): Promise<IUsers[]>{
+    return api.get('/users').then((res) => res.data)
+  }
+
   getClouseoutItems(): Promise<ISharedClouseoutPageData[]>{
     return api.get('/finances/closeout').then((res) => res.data)
   }  
@@ -116,8 +129,8 @@ class ApiClient {
     return api.post('/asaas/invoice', data).then((res) => res.data)
   }
 
-  getPendingPayments(): Promise<IPendingPayments[]>{
-    return api.get("/me/pending-payments").then((res) => res.data )
+  getPendingPayments(userId: string): Promise<IPendingPayments[]>{
+    return api.get("/me/pending-payments", {headers: {user_id: userId}}).then((res) => res.data )
   }
 }
 

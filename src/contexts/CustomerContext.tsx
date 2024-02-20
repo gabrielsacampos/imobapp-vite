@@ -1,6 +1,9 @@
+import { useCustomers } from "@/hooks/useCustomers";
+import { useUser } from "@clerk/clerk-react";
 import { createContext } from "react";
 
 interface CustomerContextType{
+    user_id : string;
     active_leases: {
         code: string;
         value: number;
@@ -31,8 +34,13 @@ interface CustomerProviderProps{
 const CustomerContext = createContext({} as CustomerContextType)
 
 export function CustomerProvider({children}: CustomerProviderProps){
+    // const {user, isSignedIn, isLoaded} = useUser()
+    // const data = useCustomers()
+
+    // console.log(data)
+
     return (
-        <CustomerContext.Provider value={{active_leases: [], properties_list: [], leases_to_expire: []}}>
+        <CustomerContext.Provider value={{} as CustomerContextType}>
             {children}
         </CustomerContext.Provider>
     )
