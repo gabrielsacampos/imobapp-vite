@@ -1,5 +1,5 @@
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
-import { Badge, Callout, Card } from "@radix-ui/themes";
+import { Badge, Callout, Card, Separator } from "@radix-ui/themes";
 import { AlertCircle, ArrowUpLeftIcon, ArrowUpRightIcon, Building, CheckCircle, DollarSign } from "lucide-react";
 
 import { priceFormatter } from "@/lib/utils/formatter";
@@ -180,12 +180,18 @@ export function OwnersTopCards(){
                         <Card color="gray" className="w-[300px] sm:w-[210px] h-[80px]">
                             <div className="flex flex-col justify-between h-full" >
                                 <header className="flex items-center justify-between">
-                                    <h1>{card.title}</h1>
+                                    <h1 className="font-semibold text-zinc-500">{card.title}</h1>
                                     {card.icon}
                                 </header>
                                 <div className="flex items-center gap-1 justify-between" >
+
                                     <p className="text-xl font-bold text-zinc-500">{card.value_1}</p> 
-                                    <p className="text-sm font-light italic text-zinc-400 flex items-center gap-1"> /  {card.value_2}</p>
+
+                                <div className="flex gap-2 items-center">
+                                    <Separator orientation="vertical" />
+                                    <p className="text-sm font-light italic text-zinc-400 flex items-center gap-1">{card.value_2}</p>
+                                </div>
+                                    
                                 </div>
                             </div>
                         </Card>

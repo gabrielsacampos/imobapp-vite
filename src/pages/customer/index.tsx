@@ -1,7 +1,3 @@
-
-
-
-
 import { useContext } from "react";
 
 import { AuthContext } from "@/contexts/AuthContext";
@@ -19,9 +15,6 @@ export function Customer(){
     
     const userIsTenant = role && role.includes("TENANT");
     const userIsOwner = role && role.includes("OWNER")
-
-    console.log(user)
-    
 
     return(
         <div  className="w-full flex justify-center">
