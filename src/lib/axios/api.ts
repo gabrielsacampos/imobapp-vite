@@ -2,6 +2,8 @@
 
 import axios from "axios";
 
+import { ITopCards } from "./interfaces/customers/owners/ITopCards";
+
 // import { IInvoicesTopCard } from "@/app/(private)/dashboard/components/TopCards/InvoicesTopCard";
 // import { ILeasesTopCard } from "@/app/(private)/dashboard/components/TopCards/LeasesTopCard";
 // import { IPropertiesTopCard } from "@/app/(private)/dashboard/components/TopCards/PropertiesTopCard";
@@ -120,19 +122,47 @@ class ApiClient {
 
 
   getUsers(): Promise<IUsers[]>{
-    return api.get('/users').then((res) => res.data)
+    return api.get('/users')
+      .then((res) => res.data)
+      .catch((err) => {
+        console.error(err)
+      })
   }
 
   getClouseoutItems(): Promise<ISharedClouseoutPageData[]>{
-    return api.get('/finances/closeout').then((res) => res.data)
+    return api.get('/finances/closeout')
+      .then((res) => res.data)
+      .catch((err) => {
+        console.error(err)
+      })
   }  
 
   postInvoice(data: IPostInvoice): Promise<Partial<IPostInvoice>>{
-    return api.post('/asaas/invoice', data).then((res) => res.data)
+    return api.post('/asaas/invoice', data)
+      .then((res) => res.data)
+      .catch((err) => {
+        console.error(err)
+      })
   }
 
   getPendingPayments(userId: string): Promise<IPendingPayments[]>{
-    return api.get("/me/pending-payments", {headers: {user_id: userId}}).then((res) => res.data )
+    return api.get("/me/pending-payments", {headers: {user_id: userId}})
+      .then((res) => res.data)
+      .catch((err) => {
+        console.error(err)
+      })
+  }
+
+  getCustomerOwnersTopCards(userId: string): Promise<ITopCards>{
+    console.log('executando')
+    return api.get("/me/topcards", {headers: {user_id: userId}})
+      .then((res) => {
+        console.log(res)
+        return res.data
+      })
+      .catch((err) => {
+        console.error(err)
+      })
   }
 }
 

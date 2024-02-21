@@ -1,6 +1,7 @@
-import { Dialog } from "@radix-ui/themes";
-import { OwnersLeases } from "./OwnersLeases";
 import { Cross2Icon } from "@radix-ui/react-icons";
+import { Dialog } from "@radix-ui/themes";
+
+import { OwnersLeases } from "./OwnersLeases";
 
 
 

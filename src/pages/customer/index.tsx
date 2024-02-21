@@ -18,6 +18,7 @@ export function Customer(){
 
     return(
         <div  className="w-full flex justify-center">
+
             <Tabs className="w-screen max-w-4xl flex flex-col" defaultValue="owner">
                 <TabsList>
                     {userIsTenant ? 

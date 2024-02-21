@@ -1,11 +1,71 @@
 import { Badge, Card } from "@radix-ui/themes";
 import { DatePicker } from 'antd';
 
-import { mock } from "@/pages/customer/mock";
-
 import { OwnersInvoiceDialog } from "./OwnersInvoiceDialog";
 
+const mock = [
+    {
+        number: 1,
+        effective_date: "01/01/2021",
+        value: "R$ 1.000,00"
+    },
+    {
+        number: 2,
+        effective_date: "01/02/2021",
+        value: "R$ 1.000,00"
+    },
+    {
+        number: 3,
+        effective_date: "01/03/2021",
+        value: "R$ 1.000,00"
+    },
+    {
+        number: 4,
+        effective_date: "01/04/2021",
+        value: "R$ 1.000,00"
+    },
+    {
+        number: 5,
+        effective_date: "01/05/2021",
+        value: "R$ 1.000,00"
+    },
+    {
+        number: 6,
+        effective_date: "01/06/2021",
+        value: "R$ 1.000,00"
+    },
+    {
+        number: 7,
+        effective_date: "01/07/2021",
+        value: "R$ 1.000,00"
+    },
+    {
+        number: 8,
+        effective_date: "01/08/2021",
+        value: "R$ 1.000,00"
+    },
+    {
+        number: 9,
+        effective_date: "01/09/2021",
+        value: "R$ 1.000,00"
+    },
+    {
+        number: 10,
+        effective_date: "01/10/2021",
+        value: "R$ 1.000,00"
+    },
+    {
+        number: 11,
+        effective_date: "01/11/2021",
+        value: "R$ 1.000,00"
+    },
+    {
+        number: 12,
+        effective_date: "01/12/2021",
+        value: "R$ 1.000,00"
+    },
 
+]
 
 
 export function OwnersInvoicesCard(){
