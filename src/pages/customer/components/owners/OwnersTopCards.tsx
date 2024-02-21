@@ -6,7 +6,7 @@ import { ITopCards } from "@/lib/axios/interfaces/customers/owners/ITopCards";
 import { priceFormatter } from "@/lib/utils/formatter";
 
 import { useTopCards } from "../../hooks/useTopCards";
-import { OwnersDialog } from "./OwnersDialog";
+
 
 export function OwnersTopCardsContainer(){
 
@@ -30,8 +30,6 @@ export function OwnersTopCardsContainer(){
     }
 
     const {leases, properties} = data as ITopCards
-
-    console.log(leases, properties)
 
 
     const activeLeases = leases.filter(lease  => lease.status === "active")

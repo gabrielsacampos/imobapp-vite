@@ -1,7 +1,7 @@
 import { useOwnersBodyContainer } from "@/hooks/useOwnersBodyContainer";
 
 import { OwnersBodyContainer } from "./OwnersBodyContainer";
-import { OwnersTopCards, OwnersTopCardsContainer } from "./OwnersTopCards";
+import { OwnersTopCardsContainer } from "./OwnersTopCards";
 
 export function OwnersMain(){
     const ownersBodyContainerQuery = useOwnersBodyContainer();
