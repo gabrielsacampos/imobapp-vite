@@ -1,11 +1,12 @@
 import { EyeOpenIcon, FileIcon } from "@radix-ui/react-icons";
 import { Card, Tabs } from "@radix-ui/themes";
+import { useContext } from "react";
 
 import { IPendingPayments } from "@/lib/axios/api";
 
+import { OwnerContext } from "../../contexts/OwnerContext";
 import { OwnersInvoicesCard } from "./OwnersInvoicesCards";
 import { OwnersPendingPaymentsCard } from "./OwnersPendingPaymentsCards";
-import { useMeAsOwner } from "../../hooks/useMeAsOwner";
 
 
 export interface OwnersBodyContainerProps {
@@ -16,7 +17,7 @@ export interface OwnersBodyContainerProps {
 
 export function OwnersBodyContainer(){
     
-    const {data, isLoading, error} = useMeAsOwner()
+    const {isLoading} = useContext(OwnerContext)
 
     if(isLoading){
         return <OwnersBodyContainerSkeleton />

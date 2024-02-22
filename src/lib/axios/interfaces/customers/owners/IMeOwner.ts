@@ -10,33 +10,43 @@ export interface IMeOwner{
         tenant_name: string;
         lease_value: number;
     }[];
-    properties: {
-        id: string;
-        db_id: number;
-        unity: string;
-        block: string;
-        type: string;
-        active: boolean;
-        status: string;
-        id_building: string;
-        building_name: string;
-        area: number;
-        bedroom: number;
-        suite: number;
-        garage: number;
-        rental_value: number;
-        sale_value: number;
-        alternative_code: string;
-        created_at: string;
-        updated_at: string;
-        owner_type: string;
-        owner_name: string;
-        owner_document: string;
-        id_property: string;
-        id_owner: string;
-        share: number;
-        property: string;
+    buildings_and_properties: {
+        name: string
+        address: string;
+        count_properties: number;
+        count_rented: number
+        count_available: number
+        total_rental_value: number;
+        properties: {
+            id: string
+            block: string
+            room: number
+            garage: number
+            area: number
+            suite: number
+            rental_value: number
+            rented_value: number
+            status: string
+        }[]
     }[];
-    pending_payments: any[]
+    properties_with_pendings: {
+        id: string
+        lease_code: string
+        total_rental_value: number;
+        total_pending: number
+        count_pending: number
+        property: string
+        id_owner: string
+        owner_name: string
+        owner_document: string
+        tenant_name: string
+        pending_payments: {
+            id: string
+            due_date: string
+            value: number
+            pending_days: number
+            bank_slip_url?: string
+        }[]
+    }[]
 }
 

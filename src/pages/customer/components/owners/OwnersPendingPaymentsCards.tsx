@@ -1,12 +1,11 @@
-import { Badge, Callout, CalloutIcon, Card } from "@radix-ui/themes";
-import { Building, InfoIcon, User } from "lucide-react";
+import { Badge, Card } from "@radix-ui/themes";
+import { Building, InfoIcon } from "lucide-react";
 
-import { IPendingPayments } from "@/lib/axios/api";
+import { IMeOwner } from "@/lib/axios/interfaces/customers/owners/IMeOwner";
 import { priceFormatter } from "@/lib/utils/formatter";
 
-import { OwnersPendingPaymentDialog } from "./OwnersPendingPaymentsDialog";
 import { useMeAsOwner } from "../../hooks/useMeAsOwner";
-import { IMeOwner } from "@/lib/axios/interfaces/customers/owners/IMeOwner";
+import { OwnersPendingPaymentDialog } from "./OwnersPendingPaymentsDialog";
 
 export function OwnersPendingPaymentsCard(){
     const {data, isLoading, error} = useMeAsOwner()
@@ -15,10 +14,14 @@ export function OwnersPendingPaymentsCard(){
         return;
     }
 
-    const { pending_payments } = data as IMeOwner
-    console.log(pending_payments)
-    const totalPending = pending_payments.reduce((acc, curr) => acc+= curr.total_pending, 0)
-    const countPending = pending_payments.reduce((acc, curr) => acc+= curr.count_pending, 0)
+    if(error){
+        return <p>error</p>;
+    }
+
+    const { properties_with_pendings } = data as IMeOwner
+    console.log(properties_with_pendings)
+    const totalPending = properties_with_pendings.reduce((acc, curr) => acc+= curr.total_pending, 0)
+    const countPending = properties_with_pendings.reduce((acc, curr) => acc+= curr.count_pending, 0)
    
     
     return (        
@@ -39,7 +42,7 @@ export function OwnersPendingPaymentsCard(){
                 </header>
 
                 <div className="flex flex-col gap-2 mt-2">
-                    {pending_payments!.map((lease) => {
+                    {properties_with_pendings!.map((lease) => {
                         const totalPending = lease.pending_payments.reduce((acc, curr) => acc+= curr.value, 0)
                         const countPending = lease.pending_payments.length;
 

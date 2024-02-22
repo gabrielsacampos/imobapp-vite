@@ -29,7 +29,7 @@ export function OwnersTopCardsContainer(){
         )
     }
 
-    const {leases, properties} = data!
+    const {leases, buildings_and_properties} = data!
 
     const activeLeases = leases.filter(lease  => lease.status === "active")
     const activeLeasesCount = activeLeases.length
@@ -39,9 +39,9 @@ export function OwnersTopCardsContainer(){
     const leasesToExpireCount = leasesToExpire.length
     
 
-    const countProperties = properties.length
-    const availableProperties = properties.filter(property => property.status === "available")
-    const availablePropertiesCount = availableProperties.length
+    const countProperties = buildings_and_properties.reduce((acc, curr) => acc+=curr.count_properties , 0)
+    const availablePropertiesCount = buildings_and_properties.reduce((acc, curr) => acc+=curr.count_available , 0)
+    
 
 
     return(
@@ -111,7 +111,7 @@ export function OwnersTopCards(props: OwnersTopCardsProps){
                 return (
                     <OwnersDialog 
                         key={card.title}
-                        contentType={card.contentType}
+                        contentType={card.contentType as "leases" | "properties"}
                     >
                             <Card  
                                 className="w-[300px] sm:w-[210px] h-[80px] 

@@ -1,13 +1,13 @@
 import { Dialog, Link, Separator } from "@radix-ui/themes";
 import { Building, User, XIcon } from "lucide-react";
 
-import { IPendingPayments } from "@/lib/axios/api";
+import { IMeOwner } from "@/lib/axios/interfaces/customers/owners/IMeOwner";
 import { dateFormatter, priceFormatter } from "@/lib/utils/formatter";
 
 
 export interface OwnersPendingPaymentDialogProps {
     children: React.ReactNode;
-    data: IPendingPayments
+    data: IMeOwner["properties_with_pendings"][0]
 }
 
 
@@ -56,7 +56,7 @@ export function OwnersPendingPaymentDialog({data, children}: OwnersPendingPaymen
                                         Vencimento: {dateFormatter.format(new Date(payment.due_date))} 
                                     </p>
                                         <span className="italic text-zinc-400">
-                                            {" "}({payment.arrears_days}4 dias em atraso)
+                                            {" "}({payment.pending_days} dias em atraso)
                                         </span>
                                 </div>
                             
