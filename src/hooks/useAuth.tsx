@@ -8,6 +8,7 @@ import { apiClient } from "@/lib/axios/api"
 export function useAuth(){
     let isAuthorizing = true
     let isAuthorized = false
+    let user = null;
 
     
     const {data: registeredUsers} = useQuery(
@@ -15,7 +16,7 @@ export function useAuth(){
     )
     const {user: clerkUser, isLoaded} = useUser()
 
-    const user = registeredUsers?.find(registeredUser => registeredUser.email === clerkUser?.emailAddresses[0].emailAddress)
+    user = registeredUsers?.find(registeredUser => registeredUser.email === clerkUser?.emailAddresses[0].emailAddress)
 
     if(isLoaded){
         isAuthorizing = false

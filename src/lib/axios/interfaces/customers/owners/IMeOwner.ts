@@ -1,4 +1,4 @@
-export interface ITopCards{
+export interface IMeOwner{
     leases: {
         id: string;
         code: string;
@@ -37,5 +37,6 @@ export interface ITopCards{
         share: number;
         property: string;
     }[];
+    pending_payments: any[]
 }
 

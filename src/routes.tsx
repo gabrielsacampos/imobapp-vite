@@ -5,8 +5,11 @@ import { AuthLayout } from './pages/_layouts/auth'
 import { CustomerLayout } from './pages/_layouts/customer'
 import { Closeout } from './pages/app/Closeout'
 import { Dashboard } from './pages/app/Dashboard'
+import { Users } from './pages/app/Users/Users'
 import { SignIn } from './pages/auth/sign-in'
 import { Customer } from './pages/customer'
+import { HomeLayout } from './pages/_layouts/home'
+import { Home } from './pages/home/Home'
 
 export const router = createBrowserRouter([
     {
@@ -14,7 +17,8 @@ export const router = createBrowserRouter([
         element: <AppLayout />, 
         children: [
             {path: '/', element: <Dashboard />},
-            {path: '/closeout', element: <Closeout />}
+            {path: '/closeout', element: <Closeout />},
+            {path: '/users', element: <Users />}
         ]
     },
     {

@@ -2,7 +2,7 @@
 
 import axios from "axios";
 
-import { ITopCards } from "./interfaces/customers/owners/ITopCards";
+import { IMeOwner, ITopCards } from "./interfaces/customers/owners/IMeOwner";
 
 // import { IInvoicesTopCard } from "@/app/(private)/dashboard/components/TopCards/InvoicesTopCard";
 // import { ILeasesTopCard } from "@/app/(private)/dashboard/components/TopCards/LeasesTopCard";
@@ -120,6 +120,13 @@ class ApiClient {
   //   return api.get('/finances').then((res) => res.data)
   // }  
 
+  getCustomers(): Promise<any>{
+    return api.get('/customers')
+      .then((res) => res.data)
+      .catch((err) => {
+        console.error(err)
+      })
+  }
 
   getUsers(): Promise<IUsers[]>{
     return api.get('/users')
@@ -145,25 +152,15 @@ class ApiClient {
       })
   }
 
-  getPendingPayments(userId: string): Promise<IPendingPayments[]>{
-    return api.get("/me/pending-payments", {headers: {user_id: userId}})
+  getMeData(userId: string): Promise<IMeOwner>{
+    console.log("executou")
+    return api.get("/me", {headers: {user_id: userId}})
       .then((res) => res.data)
       .catch((err) => {
         console.error(err)
       })
   }
 
-  getCustomerOwnersTopCards(userId: string): Promise<ITopCards>{
-    console.log('executando')
-    return api.get("/me/topcards", {headers: {user_id: userId}})
-      .then((res) => {
-        console.log(res)
-        return res.data
-      })
-      .catch((err) => {
-        console.error(err)
-      })
-  }
 }
 
 export const apiClient = new ApiClient()

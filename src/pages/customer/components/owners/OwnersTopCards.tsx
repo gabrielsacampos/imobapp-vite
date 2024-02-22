@@ -1,19 +1,19 @@
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import { Callout, Card, Separator } from "@radix-ui/themes";
 import { AlertCircle, ArrowUpRightIcon, Building, CheckCircle } from "lucide-react";
+import { useContext } from "react";
 
-import { ITopCards } from "@/lib/axios/interfaces/customers/owners/ITopCards";
 import { priceFormatter } from "@/lib/utils/formatter";
 
-import { useTopCards } from "../../hooks/useTopCards";
+import { OwnerContext } from "../../contexts/OwnerContext";
+import { OwnersDialog } from "./OwnersDialog";
 
 
 export function OwnersTopCardsContainer(){
 
+    const {data, isLoading, error} = useContext(OwnerContext)
 
-    const {data, error, isLoading} = useTopCards()
-
-     if(isLoading){
+    if(isLoading){
         return(<OwnersTopCardsSkeleton countCards={4} />)
     }
     if(error){
@@ -29,15 +29,17 @@ export function OwnersTopCardsContainer(){
         )
     }
 
-    const {leases, properties} = data as ITopCards
-
+    const {leases, properties} = data!
 
     const activeLeases = leases.filter(lease  => lease.status === "active")
     const activeLeasesCount = activeLeases.length
     const activeLeasesValue = activeLeases.reduce((acc, lease) => acc + lease.lease_value, 0)
-    const leasesToExpireCount = 3;
+    const leasesToExpire = leases.filter(lease => lease.status === "to_expire")
+    const leasesToExpireValue = leasesToExpire.reduce((acc, lease) => acc + lease.lease_value, 0)
+    const leasesToExpireCount = leasesToExpire.length
     
 
+    const countProperties = properties.length
     const availableProperties = properties.filter(property => property.status === "available")
     const availablePropertiesCount = availableProperties.length
 
@@ -47,7 +49,9 @@ export function OwnersTopCardsContainer(){
             activeLeasesCount={activeLeasesCount}
             activeLeasesValue={activeLeasesValue}
             leasesToExpireCount={leasesToExpireCount}
+            leasesToExpireValue={leasesToExpireValue}
             availablePropertiesCount={availablePropertiesCount}
+            countPropereties={countProperties}
         />
     )
 
@@ -58,7 +62,9 @@ export interface OwnersTopCardsProps {
     activeLeasesCount: number;
     activeLeasesValue: number;
     leasesToExpireCount: number;
+    leasesToExpireValue: number;
     availablePropertiesCount: number;
+    countPropereties: number;
 
 }
 
@@ -75,14 +81,14 @@ export function OwnersTopCards(props: OwnersTopCardsProps){
         {
             title: "Contratos a vencer",
             contentType: "leases",
-            value_1: priceFormatter.format(props.leasesToExpireCount+1000),
+            value_1: priceFormatter.format(props.leasesToExpireValue),
             value_2: props.leasesToExpireCount,
             icon: <AlertCircle size={15}/>
         },
         {
             title: "Reajustes",
             contentType: "leases",
-            value_1: priceFormatter.format(props.leasesToExpireCount+1000),
+            value_1: priceFormatter.format(props.leasesToExpireCount),
             value_2: <div className="flex items-center gap-1 text-blue-400 font-semibold"><ArrowUpRightIcon size={10}/>  {props.leasesToExpireCount}%</div>,
             icon: <ArrowUpRightIcon size={15}/>
         },
@@ -90,7 +96,7 @@ export function OwnersTopCards(props: OwnersTopCardsProps){
             title: "Imóveis disponíveis",
             contentType: "properties",
             value_1: props.availablePropertiesCount,
-            value_2: props.availablePropertiesCount+10,
+            value_2: props.countPropereties,
             icon: <Building size={15}/>
         },
     
@@ -103,24 +109,34 @@ export function OwnersTopCards(props: OwnersTopCardsProps){
         <div className=" grid grid-cols-1 sm:grid-cols-4 gap-3 place-items-center">
             {topCards.map((card) => {
                 return (
-                        <Card color="gray" className="w-[300px] sm:w-[210px] h-[80px]">
-                            <div className="flex flex-col justify-between h-full" >
-                                <header className="flex items-center justify-between">
-                                    <h1 className="font-semibold text-zinc-500">{card.title}</h1>
-                                    {card.icon}
-                                </header>
-                                <div className="flex items-center gap-1 justify-between" >
+                    <OwnersDialog 
+                        key={card.title}
+                        contentType={card.contentType}
+                    >
+                            <Card  
+                                className="w-[300px] sm:w-[210px] h-[80px] 
+                                hover:cursor-pointer hover:shadow-sm transition-colors
+                                hover:bg-zinc-50"
+                            >
+                                <div className="flex flex-col justify-between h-full" >
+                                    <header className="flex items-center justify-between">
+                                        <h1 className="font-semibold text-zinc-500">{card.title}</h1>
+                                        {card.icon}
+                                    </header>
+                                    <div className="flex items-center gap-1 justify-between" >
 
-                                    <p className="text-xl font-bold text-zinc-500">{card.value_1}</p> 
+                                        <p className="text-xl font-bold text-zinc-500">{card.value_1}</p> 
 
-                                <div className="flex gap-2 items-center">
-                                    <Separator orientation="vertical" />
-                                    <p className="text-sm font-light italic text-zinc-400 flex items-center gap-1">{card.value_2}</p>
+                                    <div className="flex gap-2 items-center">
+                                        <Separator orientation="vertical" />
+                                        <p className="text-sm font-light italic text-zinc-400 flex items-center gap-1">{card.value_2}</p>
+                                    </div>
+                                        
+                                    </div>
                                 </div>
-                                    
-                                </div>
-                            </div>
-                        </Card>
+                            </Card>
+
+                    </OwnersDialog>
                 )
             })}
         </div>

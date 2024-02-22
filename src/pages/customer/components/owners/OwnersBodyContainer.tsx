@@ -5,6 +5,7 @@ import { IPendingPayments } from "@/lib/axios/api";
 
 import { OwnersInvoicesCard } from "./OwnersInvoicesCards";
 import { OwnersPendingPaymentsCard } from "./OwnersPendingPaymentsCards";
+import { useMeAsOwner } from "../../hooks/useMeAsOwner";
 
 
 export interface OwnersBodyContainerProps {
@@ -13,10 +14,11 @@ export interface OwnersBodyContainerProps {
     isLoading: boolean;
 }
 
-export function OwnersBodyContainer(props: OwnersBodyContainerProps){
+export function OwnersBodyContainer(){
     
+    const {data, isLoading, error} = useMeAsOwner()
 
-    if(props.isLoading){
+    if(isLoading){
         return <OwnersBodyContainerSkeleton />
     }
 
@@ -42,7 +44,7 @@ export function OwnersBodyContainer(props: OwnersBodyContainerProps){
                     </div>
                 </Tabs.Content>
                 <Tabs.Content value="pending">
-                    <OwnersPendingPaymentsCard data={props.data!} />
+                    <OwnersPendingPaymentsCard/>
                 </Tabs.Content>
             </Tabs.Root>
         </Card>

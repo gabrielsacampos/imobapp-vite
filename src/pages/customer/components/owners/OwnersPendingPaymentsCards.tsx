@@ -5,19 +5,20 @@ import { IPendingPayments } from "@/lib/axios/api";
 import { priceFormatter } from "@/lib/utils/formatter";
 
 import { OwnersPendingPaymentDialog } from "./OwnersPendingPaymentsDialog";
+import { useMeAsOwner } from "../../hooks/useMeAsOwner";
+import { IMeOwner } from "@/lib/axios/interfaces/customers/owners/IMeOwner";
 
-export interface OwnersPendingPaymentsProps {
-    data: IPendingPayments[]
-}
+export function OwnersPendingPaymentsCard(){
+    const {data, isLoading, error} = useMeAsOwner()
 
-export function OwnersPendingPaymentsCard({data}: OwnersPendingPaymentsProps){
-    
-    // function handleOnSwitchChange(){
-    //     console.log("changed")
-    // }    
+    if(isLoading){
+        return;
+    }
 
-    const totalPending = data.reduce((acc, curr) => acc+= curr.total_pending, 0)
-    const countPending = data.reduce((acc, curr) => acc+= curr.count_pending, 0)
+    const { pending_payments } = data as IMeOwner
+    console.log(pending_payments)
+    const totalPending = pending_payments.reduce((acc, curr) => acc+= curr.total_pending, 0)
+    const countPending = pending_payments.reduce((acc, curr) => acc+= curr.count_pending, 0)
    
     
     return (        
@@ -38,7 +39,7 @@ export function OwnersPendingPaymentsCard({data}: OwnersPendingPaymentsProps){
                 </header>
 
                 <div className="flex flex-col gap-2 mt-2">
-                    {data!.map((lease) => {
+                    {pending_payments!.map((lease) => {
                         const totalPending = lease.pending_payments.reduce((acc, curr) => acc+= curr.value, 0)
                         const countPending = lease.pending_payments.length;
 

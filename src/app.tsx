@@ -1,10 +1,12 @@
-import { SignUpButton } from '@clerk/clerk-react'
+import { SignInButton } from '@clerk/clerk-react'
+import { Callout } from '@radix-ui/themes'
+import { Spin } from 'antd'
+import { StopCircle } from 'lucide-react'
 import { useContext } from 'react'
 import { RouterProvider } from 'react-router-dom'
 
 import { AuthContext } from './contexts/AuthContext'
 import { router } from './routes'
-import { Spin } from 'antd'
 
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
@@ -16,7 +18,7 @@ if (!PUBLISHABLE_KEY) {
 
 
 export function App() {
-  const { user, isAuthorized, isAuthorizing } = useContext(AuthContext)
+  const {user, isAuthorized, isAuthorizing } = useContext(AuthContext)
 
   if(isAuthorizing){
       return (
@@ -28,12 +30,24 @@ export function App() {
 
   if(!isAuthorized){
       return (
-          <>
-              <SignUpButton>
-                  sair
-              </SignUpButton>
-              <h1>nao autorizado</h1>
-          </>
+        <div className='flex items-center justify-center w-full h-screen'>
+          <Callout.Root color='red'>
+            <Callout.Icon>
+              <StopCircle size={24} />
+            </Callout.Icon>
+            <Callout.Text>
+              <p>Ops! O email selecionado não tem o acesso autorizado. Entre em contato com o desenvolvedor.</p>
+              <p>Você tambem pode {" "}
+                <span className='underline font-bold'>
+                  <SignInButton>
+                  tentar com outro email
+                  </SignInButton>
+                </span>
+                </p>
+
+            </Callout.Text>
+          </Callout.Root>
+          </div>
           )
   }
   

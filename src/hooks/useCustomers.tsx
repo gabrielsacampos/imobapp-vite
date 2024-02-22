@@ -1,14 +1,12 @@
-import { api } from "@/lib/axios/api";
-import { useUser } from "@clerk/clerk-react";
 
+import { useQuery } from "@tanstack/react-query";
 
+import { apiClient } from "@/lib/axios/api";
 
+export function useCustomers(){
+    const {data, isLoading, error} = useQuery(
+        { queryKey: ['customers'], queryFn: apiClient.getCustomers }
+    )
 
-// export function useCustomers(){
-//     const {user} = useUser()
-
-//     console.log(user)
-
-
-//     return api.get('/me', {headers: {user: user?.id}})
-// }
+    return {data, isLoading, error}
+}
