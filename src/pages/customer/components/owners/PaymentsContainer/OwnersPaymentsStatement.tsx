@@ -1,5 +1,5 @@
 
-import { Badge, Card, Table } from "@radix-ui/themes";
+import { Badge, Button, Card, Table } from "@radix-ui/themes";
 import { Collapse, CollapseProps, DatePicker } from 'antd';
 import {format} from "date-fns";
 import { ptBR } from "date-fns/locale";
@@ -11,6 +11,7 @@ import { usePayments } from "../../../hooks/usePayments";
 import { OwnersInvoiceDialog } from "../OwnersInvoiceDialog";
 import { dateFormatter, priceFormatter } from "@/lib/utils/formatter";
 import { IPaidPayments } from "@/lib/axios/api";
+import { File } from "lucide-react";
 
 const mock = [
     {
@@ -77,28 +78,19 @@ const mock = [
 ]
 
 
-export function OwnersPaymentsStatement(){
-    const currentMonthNumber = new Date().getMonth()
-    const currentYearNumber = new Date().getFullYear()
+export  interface OwnersPaymentsStatementProps {
+    payments: IPaidPayments[];
+} 
 
-    // falta incluir alteracao de mes
-   const {data, error, isLoading} = usePayments(currentMonthNumber, currentYearNumber)
-
-    if(isLoading){
-        return null
-    }
-
-    if(error){
-        return <h1>Erro ao carregar dados</h1>
-    }
+export function OwnersPaymentsStatement({payments}: OwnersPaymentsStatementProps){
 
 
-    const countPayments = data?.length
-    const totalPaid = data?.reduce((acc, payment) => acc += payment.total_value, 0)
-    const totalOnlending = data?.reduce((acc, payment) => acc += payment.onlending_value, 0)
+    const countPayments = payments?.length
+    const totalPaid = payments?.reduce((acc, payment) => acc += payment.total_value, 0)
+    const totalOnlending = payments?.reduce((acc, payment) => acc += payment.onlending_value, 0)
     
     
-    const collapseItems: CollapseProps['items'] = data!.map((payment) => {
+    const collapseItems: CollapseProps['items'] = payments!.map((payment) => {
         const key = payment.id
         const label = <OwnersPaymentsAccordionLabel payment={payment}/>
         const children = <OwnersPaymentsItemsList items={payment.items}/>
@@ -109,7 +101,10 @@ export function OwnersPaymentsStatement(){
     return (
         <div className="my-5">
             <div className="flex justify-between bg-zinc-200/10 p-3 mb-2  rounded-md">
-                <h1 className="text-zinc-500">{countPayments} faturas pagas</h1>
+                <div className="flex gap-1 items-end">
+                    <h1 className="text-zinc-500">{countPayments} faturas pagas</h1>
+                    <Button size="1" color="gray" variant="soft"><File size={10} /></Button>
+                </div>
                 <div className="flex flex-col text-xs font-semibold text-zinc-500 text-end">
                     <h1> Entrada: {priceFormatter.format(totalPaid!)}</h1>
                     <h1 className="text-green-600 "> Saldo: {priceFormatter.format(totalOnlending!)}</h1>
