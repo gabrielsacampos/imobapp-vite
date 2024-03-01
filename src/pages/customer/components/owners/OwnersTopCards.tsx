@@ -31,18 +31,30 @@ export function OwnersTopCardsContainer(){
 
     const {leases, buildings_and_properties} = data!
 
+
+    const daysToExpireParam = 60
     const activeLeases = leases.filter(lease  => lease.status === "active")
     const activeLeasesCount = activeLeases.length
     const activeLeasesValue = activeLeases.reduce((acc, lease) => acc + lease.lease_value, 0)
-    const leasesToExpire = leases.filter(lease => lease.status === "to_expire")
+    const leasesToExpire = activeLeases.filter(lease => lease.days_to_expire <= daysToExpireParam)
     const leasesToExpireValue = leasesToExpire.reduce((acc, lease) => acc + lease.lease_value, 0)
     const leasesToExpireCount = leasesToExpire.length
     
 
     const countProperties = buildings_and_properties.reduce((acc, curr) => acc+=curr.count_properties , 0)
     const availablePropertiesCount = buildings_and_properties.reduce((acc, curr) => acc+=curr.count_available , 0)
-    
 
+    const leasesToReadjust = leases.filter((lease) => {
+        if(lease.need_readjustment ){
+            return true
+        }
+    })
+
+    const leasesToReadjustCount = leasesToReadjust.length;
+    const leasesToReadjustTotalValue =  leasesToReadjust?.reduce((acc, lease) => {
+        return acc + lease.lease_value;
+    }, 0);
+        
 
     return(
         <OwnersTopCards 
@@ -51,6 +63,8 @@ export function OwnersTopCardsContainer(){
             leasesToExpireCount={leasesToExpireCount}
             leasesToExpireValue={leasesToExpireValue}
             availablePropertiesCount={availablePropertiesCount}
+            leasesToReadjustCount={leasesToReadjustCount}
+            leasesToReadjustTotalValue={leasesToReadjustTotalValue}
             countPropereties={countProperties}
         />
     )
@@ -63,6 +77,8 @@ export interface OwnersTopCardsProps {
     activeLeasesValue: number;
     leasesToExpireCount: number;
     leasesToExpireValue: number;
+    leasesToReadjustCount: number;
+    leasesToReadjustTotalValue: number;
     availablePropertiesCount: number;
     countPropereties: number;
 
@@ -87,7 +103,7 @@ export function OwnersTopCards(props: OwnersTopCardsProps){
         },
         {
             title: "Reajustes",
-            contentType: "leases",
+            contentType: "readjustments",
             value_1: priceFormatter.format(props.leasesToExpireCount),
             value_2: <div className="flex items-center gap-1 text-blue-400 font-semibold"><ArrowUpRightIcon size={10}/>  {props.leasesToExpireCount}%</div>,
             icon: <ArrowUpRightIcon size={15}/>
@@ -103,7 +119,6 @@ export function OwnersTopCards(props: OwnersTopCardsProps){
     ]
 
 
-   
 
     return(
         <div className=" grid grid-cols-1 sm:grid-cols-4 gap-3 place-items-center">

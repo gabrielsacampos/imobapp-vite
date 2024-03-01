@@ -15,6 +15,5 @@ export function useMeAsOwner(){
         }
     )
 
-    return {data, isLoading, error}
-    
+    return {data, isLoading, error} 
 }

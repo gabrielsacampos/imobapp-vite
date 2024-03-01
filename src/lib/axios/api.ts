@@ -2,7 +2,7 @@
 
 import axios from "axios";
 
-import { IMeOwner, ITopCards } from "./interfaces/customers/owners/IMeOwner";
+import { IMeOwner } from "./interfaces/customers/owners/IMeOwner";
 
 // import { IInvoicesTopCard } from "@/app/(private)/dashboard/components/TopCards/InvoicesTopCard";
 // import { ILeasesTopCard } from "@/app/(private)/dashboard/components/TopCards/LeasesTopCard";
@@ -92,6 +92,25 @@ export interface IPendingPayments{
   }[]
 }
 
+export interface IPaidPayments{
+  id: string;
+  management_fee: number;
+  onlending_value: number;
+  total_value: number;
+  paid_at: Date;
+  property: string;
+  tenant_name: string;
+  items: {
+    description: string;
+    value: number;
+    behavior: string;
+    entry: string;
+    management_fee: number;
+    retained: number;
+    discount: number;
+    balance: number;
+  }[]
+}
 
 export interface IUsers {
   id: string;
@@ -153,9 +172,19 @@ class ApiClient {
   }
 
   getMeData(userId: string): Promise<IMeOwner>{
-    console.log("executou")
     return api.get("/me", {headers: {user_id: userId}})
       .then((res) => res.data)
+      .catch((err) => {
+        console.error(err)
+      })
+  }
+
+  getPayments(month: number | string, year: number | string, userId: string): Promise<IPaidPayments[]>{
+    return api.get(`/me/paid_payments?month=${month}&year=${year}`, {headers: {user_id: userId}})
+      .then((res) => {
+        console.log("data", res.data)
+        return res.data
+      })
       .catch((err) => {
         console.error(err)
       })

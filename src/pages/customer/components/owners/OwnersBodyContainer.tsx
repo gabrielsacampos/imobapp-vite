@@ -1,12 +1,13 @@
-import { EyeOpenIcon, FileIcon } from "@radix-ui/react-icons";
+import { EyeOpenIcon } from "@radix-ui/react-icons";
 import { Card, Tabs } from "@radix-ui/themes";
+import { DollarSign } from "lucide-react";
 import { useContext } from "react";
 
 import { IPendingPayments } from "@/lib/axios/api";
 
 import { OwnerContext } from "../../contexts/OwnerContext";
-import { OwnersInvoicesCard } from "./OwnersInvoicesCards";
 import { OwnersPendingPaymentsCard } from "./OwnersPendingPaymentsCards";
+import { OwnersPaymentsContainer } from "./PaymentsContainer/OwnersPaymentsContainer";
 
 
 export interface OwnersBodyContainerProps {
@@ -30,7 +31,7 @@ export function OwnersBodyContainer(){
                 <Tabs.List>
                     <Tabs.Trigger value="invoices" >
                         <div  className="text-zinc-600 flex gap-1 items-center">
-                            <FileIcon /> <span>Notas</span>
+                         <DollarSign size={15}  /><span>Recebido</span>
                         </div>
                     </Tabs.Trigger>
                     <Tabs.Trigger value="pending" >
@@ -41,7 +42,7 @@ export function OwnersBodyContainer(){
                 </Tabs.List>
                 <Tabs.Content value="invoices">
                     <div className="flex flex-col gap-2 h-auto">
-                        <OwnersInvoicesCard />
+                        <OwnersPaymentsContainer />
                     </div>
                 </Tabs.Content>
                 <Tabs.Content value="pending">

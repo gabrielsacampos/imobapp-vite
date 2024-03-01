@@ -1,6 +1,5 @@
 import { SignInButton } from "@clerk/clerk-react";
-import { Button, Card } from "@radix-ui/themes";
-import { Input } from "antd";
+import { Button } from "@radix-ui/themes";
 
 
 export function SignIn(){

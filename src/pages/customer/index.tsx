@@ -1,9 +1,7 @@
 
-import { Select } from "@radix-ui/themes";
 import { useContext } from "react";
 
 import { AuthContext, AuthContextType } from "@/contexts/AuthContext";
-import { useUsersList } from "@/hooks/useUsersList";
 import { IUsers } from "@/lib/axios/api";
 import { OwnersMain } from "@/pages/customer/components/owners/OwnersMain";
 

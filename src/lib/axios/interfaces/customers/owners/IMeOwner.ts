@@ -9,6 +9,17 @@ export interface IMeOwner{
         property: string;
         tenant_name: string;
         lease_value: number;
+        days_to_expire: number;
+        readjustment_month: number;
+        need_readjustment: null | {
+            new_value: number;
+            readjustment_percent: number;
+            history: {
+                current_new_value: number;
+                percentage: string;
+                date: string;
+            }[]
+        };
     }[];
     buildings_and_properties: {
         name: string
@@ -20,6 +31,7 @@ export interface IMeOwner{
         properties: {
             id: string
             block: string
+            unity: string;
             room: number
             garage: number
             area: number
