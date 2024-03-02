@@ -1,12 +1,13 @@
 import { TabsContent } from "@radix-ui/themes";
-import { DatePicker } from "antd";
+import { DatePicker, Spin } from "antd";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { usePayments } from "@/pages/customer/hooks/usePayments";
 
+import { OwnersPaymentsChartGrouped } from "./OwnersPaymentsChartGrouped";
 import { OwnersPaymentsStatement } from "./OwnersPaymentsStatement";
 
 export function OwnersPaymentsContainer() {
@@ -20,7 +21,6 @@ export function OwnersPaymentsContainer() {
 
    const {data, error, isLoading} = usePayments(periodMonth, periodYear)
 
-
     function handleMonthChange(e){
         const newYear = e.$y;
         const newMonth = e.$M;
@@ -31,10 +31,6 @@ export function OwnersPaymentsContainer() {
         setSelectedMonth(new Date(newYear, newMonth))
     }
 
-
-    if(isLoading){
-        return <div>loading</div>
-    }
 
     if(error){
         return <div>error</div>
@@ -49,6 +45,7 @@ export function OwnersPaymentsContainer() {
                         placeholder={selectMonthString}
                         onChange={handleMonthChange} 
                         picker="month" 
+                        format="MM/YYYY"
                     />
 
             </div>
@@ -58,10 +55,19 @@ export function OwnersPaymentsContainer() {
                     <TabsTrigger className="self-justify  w-full" value="grouped-by-building">Agrupados por empreendimento</TabsTrigger>
                 </TabsList>
                 <TabsContent value="statement">
-                   <OwnersPaymentsStatement payments={data!} />
+                    {
+                        isLoading? 
+                        <div className="w-full h-full flex items-center justify-center mt-10"> <Spin size="large"/> </div>:
+                            <OwnersPaymentsStatement payments={data!} />
+                            
+                    }
                 </TabsContent>
                 <TabsContent value="grouped-by-building">
-                    grouped by building
+                    {
+                        isLoading? 
+                            <div className="w-full h-full flex items-center justify-center mt-10"> <Spin size="large"/> </div>:
+                            <OwnersPaymentsChartGrouped  payments={data!}/>
+                    }
                 </TabsContent>
             </Tabs>
         </div>

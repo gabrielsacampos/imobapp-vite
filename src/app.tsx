@@ -3,6 +3,7 @@ import { Callout } from '@radix-ui/themes'
 import { Spin } from 'antd'
 import { StopCircle } from 'lucide-react'
 import { useContext } from 'react'
+import {ReactQueryDevtools} from 'react-query/devtools'
 import { RouterProvider } from 'react-router-dom'
 
 import { AuthContext } from './contexts/AuthContext'

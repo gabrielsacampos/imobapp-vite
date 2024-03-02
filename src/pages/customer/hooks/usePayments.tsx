@@ -10,11 +10,10 @@ export function usePayments(month: number | string, year: number | string){
 
     const {data, error, isLoading} = useQuery(
         {
-            queryKey: ['invoices-as-owner'], 
+            queryKey: ['paid-payments-as-owner', month, year], 
             queryFn: () => apiClient.getPayments(month, year, user.customer_id)
         }
     )
 
-    console.log(data)
     return {data, error, isLoading}
 }

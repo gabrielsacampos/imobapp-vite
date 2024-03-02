@@ -1,81 +1,12 @@
 
-import { Badge, Button, Card, Table } from "@radix-ui/themes";
-import { Collapse, CollapseProps, DatePicker } from 'antd';
-import {format} from "date-fns";
-import { ptBR } from "date-fns/locale";
-
-import NoDataSVG from '@/svg/no-data.svg'
-
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../../../components/ui/tabs";
-import { usePayments } from "../../../hooks/usePayments";
-import { OwnersInvoiceDialog } from "../OwnersInvoiceDialog";
-import { dateFormatter, priceFormatter } from "@/lib/utils/formatter";
-import { IPaidPayments } from "@/lib/axios/api";
+import { Button, Table } from "@radix-ui/themes";
+import { Collapse, CollapseProps } from 'antd';
 import { File } from "lucide-react";
 
-const mock = [
-    {
-        number: 1,
-        effective_date: "01/01/2021",
-        value: "R$ 1.000,00"
-    },
-    {
-        number: 2,
-        effective_date: "01/02/2021",
-        value: "R$ 1.000,00"
-    },
-    {
-        number: 3,
-        effective_date: "01/03/2021",
-        value: "R$ 1.000,00"
-    },
-    {
-        number: 4,
-        effective_date: "01/04/2021",
-        value: "R$ 1.000,00"
-    },
-    {
-        number: 5,
-        effective_date: "01/05/2021",
-        value: "R$ 1.000,00"
-    },
-    {
-        number: 6,
-        effective_date: "01/06/2021",
-        value: "R$ 1.000,00"
-    },
-    {
-        number: 7,
-        effective_date: "01/07/2021",
-        value: "R$ 1.000,00"
-    },
-    {
-        number: 8,
-        effective_date: "01/08/2021",
-        value: "R$ 1.000,00"
-    },
-    {
-        number: 9,
-        effective_date: "01/09/2021",
-        value: "R$ 1.000,00"
-    },
-    {
-        number: 10,
-        effective_date: "01/10/2021",
-        value: "R$ 1.000,00"
-    },
-    {
-        number: 11,
-        effective_date: "01/11/2021",
-        value: "R$ 1.000,00"
-    },
-    {
-        number: 12,
-        effective_date: "01/12/2021",
-        value: "R$ 1.000,00"
-    },
+import { IPaidPayments } from "@/lib/axios/api";
+import { dateFormatter, priceFormatter } from "@/lib/utils/formatter";
+import SelectDate from '@/svg/select-date.svg';
 
-]
 
 
 export  interface OwnersPaymentsStatementProps {
@@ -98,6 +29,11 @@ export function OwnersPaymentsStatement({payments}: OwnersPaymentsStatementProps
         return {key, label, children}
     })
 
+
+    if(payments.length === 0){
+        return <OwnersNotFoundPayments />
+    }
+
     return (
         <div className="my-5">
             <div className="flex justify-between bg-zinc-200/10 p-3 mb-2  rounded-md">
@@ -117,11 +53,12 @@ export function OwnersPaymentsStatement({payments}: OwnersPaymentsStatementProps
 
 
 export interface OwnersPaymentsAccordionLabelProps {
-    payment: {property: string;
-    paid_at: Date;
-    total_value: number;
-    onlending_value: number;
-    tenant_name: string;
+    payment: {
+        property: string;
+        paid_at: Date;
+        total_value: number;
+        onlending_value: number;
+        tenant_name: string;
     }
 }
 export function OwnersPaymentsAccordionLabel({payment}: OwnersPaymentsAccordionLabelProps){
@@ -177,11 +114,11 @@ export function OwnersPaymentsItemsList({items}: OwnersPaymentsItemsListProps){
 
 
 
-export function OwnersNotFoundInvoices(){
+export function OwnersNotFoundPayments(){
     return (
         <div className="h-full flex flex-col items-center justify-center mt-10" >
-            <h1 className="text-semibold text-zinc-500">Não há notas para esse período.</h1>
-            <img src={NoDataSVG} width={100} height={100} className="mt-5" />
+            <h1 className="text-semibold text-zinc-500">Não há nada por aqui. Selecione outro período.</h1>
+            <img src={SelectDate} width={100} height={100} className="mt-5" />
         </div>    
     )
 }

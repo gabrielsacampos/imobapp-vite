@@ -100,6 +100,7 @@ export interface IPaidPayments{
   paid_at: Date;
   property: string;
   tenant_name: string;
+  building_name: string;
   items: {
     description: string;
     value: number;
