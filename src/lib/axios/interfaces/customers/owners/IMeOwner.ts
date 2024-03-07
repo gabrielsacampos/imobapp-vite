@@ -1,4 +1,13 @@
 export interface IMeOwner{
+    indexes: {
+        name: string;
+        last_accumulated_value: number;
+        last_index_month: Date;
+        history: {
+            date: string;
+            value: string;
+        }[];
+    }[];
     leases: {
         id: string;
         code: string;
@@ -13,7 +22,7 @@ export interface IMeOwner{
         readjustment_month: number;
         need_readjustment: null | {
             new_value: number;
-            readjustment_percent: number;
+            percentage: number;
             history: {
                 current_new_value: number;
                 percentage: string;

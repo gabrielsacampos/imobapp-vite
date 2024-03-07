@@ -130,8 +130,10 @@ export function OwnersTopCards(props: OwnersTopCardsProps){
                     >
                             <Card  
                                 className="w-[300px] sm:w-[210px] h-[80px] 
-                                hover:cursor-pointer hover:shadow-sm transition-colors
-                                hover:bg-zinc-50"
+                                hover:cursor-pointer hover:shadow-sm transition-all
+                                hover:bg-zinc-50 hover:-translate-y-0.5 
+
+                                "
                             >
                                 <div className="flex flex-col justify-between h-full" >
                                     <header className="flex items-center justify-between">

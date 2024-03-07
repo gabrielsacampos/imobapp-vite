@@ -1,7 +1,7 @@
 
 import { Button, Table } from "@radix-ui/themes";
 import { Collapse, CollapseProps } from 'antd';
-import { File } from "lucide-react";
+import { DownloadIcon, File } from "lucide-react";
 
 import { IPaidPayments } from "@/lib/axios/api";
 import { dateFormatter, priceFormatter } from "@/lib/utils/formatter";
@@ -37,11 +37,11 @@ export function OwnersPaymentsStatement({payments}: OwnersPaymentsStatementProps
     return (
         <div className="my-5">
             <div className="flex justify-between bg-zinc-200/10 p-3 mb-2  rounded-md">
-                <div className="flex gap-1 items-end">
-                    <h1 className="text-zinc-500">{countPayments} faturas pagas</h1>
-                    <Button size="1" color="gray" variant="soft"><File size={10} /></Button>
+                <div className="flex gap-1 items-center">
+                    <Button size="1" color="gray" variant="soft"><DownloadIcon size={10} />Baixar relatório (csv)</Button>
                 </div>
                 <div className="flex flex-col text-xs font-semibold text-zinc-500 text-end">
+                    <h1 className="text-zinc-500">{countPayments} faturas pagas</h1>
                     <h1> Entrada: {priceFormatter.format(totalPaid!)}</h1>
                     <h1 className="text-green-600 "> Saldo: {priceFormatter.format(totalOnlending!)}</h1>
                 </div>
